@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "laravel/sail": "^1.43"
+    },
+    "require": {
+        "livewire/flux": "^2.1"
+    }
+}
