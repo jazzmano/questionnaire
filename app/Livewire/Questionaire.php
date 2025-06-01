@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\QuestionnaireSession;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestionnaireAction;
+
 class Questionaire extends Component
 {
     public $data;
@@ -18,23 +19,25 @@ class Questionaire extends Component
     public $pendingNodeKey;
     public $pendingAnswer;
     public $pendingActions;
+    public $completedFlow = false;
+    public $fileContents;
 
     public function mount()
     {
-        $json = file_get_contents(resource_path('starterfil.json'));
-        $this->data = json_decode($json, true)['nodes'];
-        $this->currentNodeKey = json_decode($json, true)['entry'] ?? '0';
+        $this->fileContents = file_get_contents(resource_path('starterfil.json'));
+        $this->data = json_decode($this->fileContents, true)['nodes'];
+        $this->currentNodeKey = json_decode($this->fileContents, true)['entry'] ?? '0';
         $this->currentNode = $this->data[$this->currentNodeKey];
         $this->session = QuestionnaireSession::create(['user_id' => Auth::user()->id, 'final_node_key' => null, 'started_at' => now()]);
     }
 
-
     public function selectOption($nextNodeKey, $actions = null, $answer = null)
     {
-        if($nextNodeKey === 'your_system_is_an_AI_system' || $nextNodeKey === 'not_subject_to_the_AI_Act') {
+        if ($nextNodeKey === 'your_system_is_an_AI_system' || $nextNodeKey === 'not_subject_to_the_AI_Act') {
             $this->session->final_node_key = $nextNodeKey;
             $this->session->completed_at = now();
             $this->session->save();
+            $this->requiresJustification = false;
         }
         $this->pendingNodeKey = $nextNodeKey;
         $this->pendingAnswer = $answer;
@@ -62,6 +65,10 @@ class Questionaire extends Component
         $this->proceedWithFlow = true;
         $this->justification_text = null;
     }
+    public function downloadResults()
+    {
+        return $this->redirect("/questionnaire/{$this->session->id}/report", navigate: true);
+    }
 
     protected function finalizeStep($justification = null)
     {
@@ -75,6 +82,10 @@ class Questionaire extends Component
         if (isset($this->data[$this->pendingNodeKey])) {
             $this->currentNodeKey = $this->pendingNodeKey;
             $this->currentNode = $this->data[$this->pendingNodeKey];
+
+            if (($this->currentNode['next'] ?? null) === 'end_flow') {
+                $this->completedFlow = true;
+            }
         }
 
         // Reset pending state

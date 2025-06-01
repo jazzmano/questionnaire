@@ -35,4 +35,13 @@
     <flux:button wire:click="submitJustification">Continue</flux:button>
     </div>
     @endif
+    @if($completedFlow)
+        <div class="flex flex-col mt-4 gap-4 items-center">
+            <h2 class="text-xl font-semibold mb-4">Flow Completed</h2>
+
+            <a href="/questionnaire/{{ $session->id }}/report" target="_blank">
+                <flux:button>Download Results</flux:button>
+            </a>
+        </div>
+    @endif
 </div>
