@@ -1,0 +1,300 @@
+{
+    "entry": "2",
+    "nodes": {
+        "2": {
+            "type": "decision",
+            "questions": "Is your IT system designed to operate with a varying level of autonomy?",
+            "explanation": "Autonomy_intro_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "3" 
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt":"Please, justify your decision"}
+                    ],
+                    "next": "don't_know_followup"
+                }
+            ]
+        },
+        
+        "dont_know_followup": {
+            "type": "decision",
+            "question": "What part are you unsure about?",
+            "options": [
+                {
+                    "label": "I don't know what is meant by 'designed' to operate.",
+                    "action": "log_and_time",
+                    "next": "2a"
+                },
+                {
+                    "label": "I don't know what is meant by designed to 'operate'.",
+                    "action": "log_and_time",
+                    "next": "2b"
+                },
+                {
+                    "label": "I dont know was is meant by 'varying levels'.",
+                    "action": "log_and_time",
+                    "next": "2c"
+                },
+                {
+                    "label": "I don't know what is meant by 'autonomy'.",
+                    "action": "log_and_time",
+                    "next": "2d"
+                }
+            ]
+        },
+
+        "2a": {
+            "type": "decision",
+            "question": "Is the system 'designed' to operate with variyng levels of autonomy?",
+            "explanation": "designed_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2a_dont_know_followup"
+                }
+            ]           
+        },
+
+        "2a_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_if_designed_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is 'designed' to operate with varying levels of autonomy (recommended)",
+                    "explanation": "Pro_designed.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume, the system is not 'designed' to operate with varying levels of autonomy", 
+                    "explanation": "Contra_designed.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "2b": {
+            "type": "decision",
+            "question": "Is the system designed to 'operate' with variyng levels of autonomy?",
+            "explanation": "Operate_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2b_dont_know_followup"
+                }
+            ]           
+        },
+
+        "2b_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_if_operate_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is designed to 'operate' with varying levels of autonomy (recommended)",
+                    "explanation": "Pro_operate.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume, the system is not designed to 'operate' with varying levels of autonomy", 
+                    "explanation": "Contra_operate.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "2c": {
+            "type": "decision",
+            "question": "Is the system designed to operate with 'variyng levels' of autonomy?",
+            "explanation": "Varying_levels_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2c_dont_know_followup"
+                }
+            ]           
+        },
+
+        "2c_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_varying_levels_explanation_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is designed to operate with 'varying levels' of autonomy (recommended)",
+                    "explanation": "Pro_varying_levels.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume, the system is not designed to operate with 'varying levels' of autonomy", 
+                    "explanation": "Contra_varying_levels.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "2d": {
+            "type": "decision",
+            "question": "Is the system designed to operate with variyng levels of 'autonomy'?",
+            "explanation": "Autonomy_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "2d_dont_know_followup"
+                }
+            ]           
+        },
+
+        "2d_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_autonomy_explanation_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is designed to operate with varying levels of 'autonomy' (recommended)",
+                    "explanation": "Pro_autonomy.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume, the system is not designed to operate with varying levels of 'autonomy'", 
+                    "explanation": "Contra_autonomy.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        }
+    }
+}

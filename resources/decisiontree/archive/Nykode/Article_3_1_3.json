@@ -1,0 +1,126 @@
+{
+    "entry": "3",
+    "nodes": {
+        "3": {
+            "type": "decision",
+            "decision_id": "AIA3_adaptiveness",
+            "tags": ["adaptiveness", "AIA3"],
+            "jurisdiction": ["EU"],
+            "disclaimer": "This tool provides legal guidance only not advice",
+            "question": "Is your IT system able to exhihibit adaptiveness after deployment?",
+            "explanation": "adaptiveness_explanation.md",
+            "legal_reference": [
+                {
+                    "article": "AI Act Article 3(1)",
+                    "article_text": "AIA_article3_1.md",
+                    "relevant_article_text": "AIA_article3_1_3.md",
+                    "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+                }
+            ],
+
+            "interpretation": {
+                "summary": "plain_english_adaptiveness.md",
+                "commentary": "summary_bullets_adaptiveness.md",
+                "full_commentary": "full_commentary_adaptiveness.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_adaptiveness.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    {
+                        "source": "Recital 128",
+                        "text": "recital_128.md",
+                        "relevant_text": "recital_128_adaptiveness.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+                    },
+                    { 
+                        "source": "Commission Guidelines on the definition of an artificial intelligence system", 
+                        "relevant_text": "Commission_guidelines_adaptiveness.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+
+            "examples": [
+                { 
+                    "example": "Chatbot_adaptive.md", 
+                    "answer": "Yes" 
+                },
+                { 
+                    "example": "Chatbot_non_adaptive.md", 
+                    "answer": "No" 
+                }
+            ],
+
+            "options": [
+                {
+                    "label": "Yes.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        { "type": "log_and_time" },
+                        { "type": "require_justification", "prompt": "Please explain in your own words why your system exhibits adaptiveness after deployment." } 
+                    ], 
+                    "next": "4"
+                },
+                {
+                    "label": "No.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        { "type": "log_and_time" },
+                        { "type": "require_justification", "prompt": "Please explain in your own words why your system does not exhibit adaptiveness after deployment." } 
+                    ], 
+                    "next": "4"
+                },
+                {
+                    "label": "Unsure.",
+                    "message": "Let us find out!",
+                    "actions": [
+                        { "type": "log_and_time" },
+                        { "type": "require_justification", "prompt": "Please explain in your own words why you are unsure whether your system exhibits adaptiveness after deployment." } 
+                    ], 
+                    "next": "unsure_followup"
+                }
+            ],
+
+            "unsure_followup": {
+                "type": "decision",
+                "question": "If you are unsure of whether your system exhibits adaptiveness after deployment, we recommend one of two approaches:",
+                "options": [
+                    { 
+                        "label": "I assume the system exhibits adaptiveness after deployment (recommended).",
+                        "explanation": "pro_adaptiveness.md",
+                        "actions": [
+                            { "type": "log_and_time" },
+                            { "type": "require_justification", "prompt": "Please explain in your own words why you chose to assume that your system exhibits adaptiveness after deployment." } 
+                        ], 
+                        "next": "4" 
+                    },
+                    { 
+                        "label": "I assume the system does not exhibit adaptiveness after deployment.",
+                        "explanation": "contra_adaptiveness.md",
+                        "actions": [
+                            { "type": "log_and_time" },
+                            { "type": "require_justification", "prompt": "Please explain in your own words why you chose to assume that your system does not exhibit adaptiveness after deployment." } 
+                        ], 
+                        "next": "4" 
+                    }
+                ]
+            }
+        }
+    },
+
+    "auditability": {
+        "metadata": {
+            "activation": true,
+            "version": "1.0.0",
+            "last_updated": "2025-04-16T00:00:00Z",
+            "hash": "sha256-node-hash"
+        },
+        "trace_log_config": {
+            "track": true,
+            "fields": "ALL"
+        }
+    }
+}

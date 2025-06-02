@@ -1,0 +1,1 @@
+The adaptiveness that an AI system could exhibit after deployment, refers to self-learning capabilities, allowing the system to change while in use. 

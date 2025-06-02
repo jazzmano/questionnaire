@@ -1,0 +1,164 @@
+{
+  "entry": "1",
+  "nodes": {
+    "1": {
+      "type": "decision",
+      "question": "Is your system machine-based?",
+      "explanation": "Machine_based_system_explanation.txt",
+      "options": [
+        { 
+          "label": "Yes", 
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "2"
+        },
+        { 
+          "label": "No", 
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "not_subject_to_AI_act"
+        },
+        { 
+          "label": "Don't know", 
+          "action": "log_and_time",
+          "next": "dont_know_followup"
+        }
+      ]
+    },
+
+    "dont_know_followup": {
+      "type": "decision",
+      "question": "What part are you unsure about?",
+      "options": [
+        {
+          "label": "I don't know what 'system' means",
+          "action": "log_and_time",
+          "next": "1a"
+        },
+        {
+          "label": "I don't know what 'machine-based' means",
+          "action": "log_and_time",
+          "next": "1b"
+        }
+      ]
+    },
+
+    "1a": {
+      "type": "decision",
+      "question": "Is it a 'system'?",
+      "explanation": "System_explanation.txt",
+      "options": [
+        { 
+          "label": "Yes", 
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision"}
+          ],
+          "next": "1" 
+        },
+        { 
+          "label": "No", 
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision"}
+          ],
+          "next": "not_subject_to_the_AI_act" 
+        },
+        { 
+          "label": "Don't know", 
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ], 
+          "next": "1a_dont_know_followup"
+        }
+      ]
+    },
+
+    "1a_dont_know_followup": {
+      "type": "decision",
+      "explanation": "Dont_know_if_AI_system_followup.txt",
+      "options": [
+        {
+          "label": "I assume, it is a 'system' (recommended)",
+          "explanation": "Pro_AI_system.txt",
+          "actions": 
+          [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "1"
+        },
+        {
+          "label": "I assume, it is not a 'system'", 
+          "explanation": "Contra_AI_system.txt",
+          "actions": 
+          [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "not_subject_to_the_AI_act"
+        }
+      ]
+    },
+
+    "1b": {
+      "type": "decision",
+      "question": "Is the system 'machine-based'?",
+      "explanation": "Machine_based_explanation.txt",
+      "options": [
+        { 
+          "label": "Yes", 
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "1" 
+        },
+        { 
+          "label": "No",
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "not_subject_to_the_AI_act" 
+        },
+        { 
+          "label": "Don't know",
+          "next": "1b_dont_know_followup"
+            }
+          ]
+        },
+
+    "1b_dont_know_followup": {
+      "type": "decision",
+      "explanation": "Dont_know_if_machine_based_followup.txt",
+      "options": [
+        {
+          "label": "I assume that the system is 'machine-based' (recommended)",
+          "explanation": "Pro_machine_based.txt",
+          "actions": 
+          [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+        ],
+          "next": "1"
+        },
+        {
+          "label": "I assume that the system is not 'machine-based'", 
+          "explanation": "Contra_machine_based.txt",
+          "actions": [
+            { "type": "log_and_time" },
+            { "type": "require_justification", "prompt": "Please, justify your decision" }
+          ],
+          "next": "not_subject_to_the_AI_act"
+        }
+      ]
+    }
+  }
+}
+

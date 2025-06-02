@@ -1,0 +1,425 @@
+{
+    "entry": "0",
+    "nodes": {
+        "identification": {
+            "type": "decision",
+            "questions": [
+                {
+                    "name": "Please type in your name.",
+                    "email": "Please provide your e-mail address.",
+                    "company": "Please provide the name of the company you represent.",
+                    "system_name": "Please provide the name of the exact system (including, if applicable, the system version), you are assessing."
+                }
+            ],
+            "explanation": "decision_flow_explanation",
+            "action": "log_and_time"
+        },
+
+        "0": {
+            "type": "decision",
+            "explanation": "AI_system_explanation",
+            "question": "Is your system an AI system according to Article 3(1) of the AI Act?",
+            "options": [
+                {
+                    "label": "Yes.",
+                    "actions": [
+                        { "type": "log_and_time" },
+                        { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "your_system_is_an_AI_system"
+                },
+                {
+                    "label": "No.",
+                    "actions": [
+                        { "type": "log_and_time" },
+                        { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know.",
+                    "action": "log_and_time",
+                    "next": "unsure_followup"
+                }
+            ]
+        },
+
+        "unsure_followup": {
+            "type": "decision",
+            "question": "What parts are you unsure about (you can select more)?",
+            "multi_select": true,
+            "options": [
+                {
+                    "label": "I don't know what I don't know – take me through everything.",
+                    "actions": ["log_and_time"],
+                    "next": "1"
+                },
+                {
+                    "label": "I don't know if I fulfill the 'machine-based system' criteria.",
+                    "actions": ["log_and_time"],
+                    "next": "1"
+                },
+                {
+                    "label": "I don't know if my system has the necessary level of autonomy.",
+                    "actions": ["log_and_time"],
+                    "next": "2"
+                },
+                {
+                    "label": "I don't know whether my system can adapt/learn after use.",
+                    "actions": ["log_and_time"],
+                    "next": "3"
+                },
+                {
+                    "label": "I don't know if the AI system is designed to operate according to one or more objectives.",
+                    "actions": ["log_and_time"],
+                    "next": "4"
+                },
+                {
+                    "label": "I don't know if the system has inference capability.",
+                    "actions": ["log_and_time"],
+                    "next": "5"
+                },
+                {
+                    "label": "I don't know if the system can generate outputs.",
+                    "actions": ["log_and_time"],
+                    "next": "6"
+                },
+                {
+                    "label": "I don't know if the system can influence physical or virtual environments.",
+                    "actions": ["log_and_time"],
+                    "next": "7"
+                }
+            ]
+        },
+
+        "1": {
+            "type": "decision",
+            "question": "Is your IT system a machine-based system?",
+            "explanation": "machine_based_system_explanation.md",
+            "options": [
+                {
+                    "label": "Yes.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "No.",
+                    "message": "If your system is not machine-based, it is not an AI-system.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "message": "Let us find out!",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "1_unsure_followup"
+                }
+            ]
+        },
+
+            "1_unsure_followup": {
+                "type": "decision",
+                "explanation": "unsure_machine_based_explanation.md",
+                "options": [
+                    {
+                        "label": "I assume the system is machine-based (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "2"
+                    },
+                    {
+                        "label": "I assume the system is not machine-based.",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "not_subject_to_the_AI_act"
+                    }
+                ]
+            },
+
+        "2": {
+            "type": "decision",
+            "question": "Is your IT system designed to operate with a varying level of autonomy?",
+            "explanation": "autonomy_explanation.md",
+            "options": [
+                {
+                    "label": "Yes.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "3"
+                },
+                {
+                    "label": "No.",
+                    "message": "If your system is not designed to operate with a varying level of autonomy, it is not an AI-system.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "message": "Let us find out!",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2_unsure_followup"
+                }
+            ]
+        },
+
+            "2_unsure_followup": {
+                "type": "decision",
+                "explanation": "unsure_autonomy.md",
+                "options": [
+                    {
+                        "label": "I assume the system is designed to operate with varying levels of autonomy (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "2"
+                    },
+                    {
+                        "label": "I assume the system is not designed to operate with varying levels of autonomy.",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "not_subject_to_the_AI_act"
+                    }
+                ]
+            },
+
+        "3": {
+            "type": "decision",
+            "question": "Is your IT system able to exhihibit adaptiveness after deployment?",
+            "explanation": "adaptiveness_explanation.md",
+            "options": [
+                {
+                    "label": "Yes.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "4"
+                },
+                {
+                    "label": "No.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "4"
+                },
+                {
+                    "label": "Unsure.",
+                    "message": "Let us find out!",
+                    "actions": [ "log_and_time", "require_justification" ], 
+                    "next": "3_unsure_followup"
+                }
+            ]
+        },
+
+            "3_unsure_followup": {
+                "type": "decision",
+                "explanation": "unsure_adaptiveness.md",
+                "question": "If you are unsure of whether your system exhibits adaptiveness after deployment, we recommend one of two approaches:",
+                "options": [
+                    { 
+                        "label": "I assume the system exhibits adaptiveness after deployment (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "4" 
+                    },
+                    { 
+                        "label": "I assume the system does not exhibit adaptiveness after deployment.",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "4" 
+                    }
+                ]
+            },
+
+        "4": {
+            "type": "decision",
+            "questions": "Is your system designed to operate according to one or more implicit or explicit objectives?",
+            "explanation": "objectives_explanation.md",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "5" 
+                },
+                {
+                    "label": "No",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "4_unsure_followup"
+                }
+            ]
+        },
+
+            "4_unsure_followup": {
+                "type": "decision",
+                "explanation": "unsure_objectives.md",
+                "question": "If you are unsure of whether your system is designed to operate according to one or more implicit or explicit objectives, we recommend one of two approaches:",
+                "options": [
+                    { 
+                        "label": "I assume the system is designed to operate according to one or more implicit or explicit objectives (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "5" 
+                    },
+                    { 
+                        "label": "I assume the system is not designed to operate according to one or more implicit or explicit objectives.",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "not_subject_to_AI_act" 
+                    }
+                ]
+            },
+
+        "5": {
+            "type": "decision",
+            "questions": "Does your IT system infer, from the input it receives, how to generate outputs?",
+            "explanation": "infer_explanation.md",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "6" 
+                },
+                {
+                    "label": "No",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "5_unsure_followup"
+                }
+            ]
+        },
+
+            "5_unsure_followup": {
+                "type": "decision",
+                "explanation": "unsure_inference.md",
+                "question": "If you are unsure of whether your IT system infers, from the input it receives, how to generate outputs, we recommend one of two approaches:",
+                "options": [
+                    { 
+                        "label": "I assume the system infers, from the input it receives, how to generate outputs (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "6" 
+                    },
+                    { 
+                        "label": "I assume the system does not infers, from the input it receives, how to generate outputs ",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "not_subject_to_AI_act" 
+                    }
+                ]
+            },
+
+        "6": {
+            "type": "decision",
+            "questions": "Can your IT system generate outputs such as predictions, content, recommendations, or decisions?",
+            "explanation": "output_explanation.md",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "7" 
+                },
+                {
+                    "label": "No",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "6_unsure_followup"
+                }
+            ]
+        },
+
+            "6_unsure_followup": {
+                "type": "decision",
+                "explanation": "unsure_outputs.md",
+                "question": "If you are unsure of whether your IT system is able to generate outputs such as predictions, content, recommendations, or decisions, we recommend one of two approaches:",
+                "options": [
+                    { 
+                        "label": "I assume the system is able to generate outputs such as predictions, content, recommendations, or decisions (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "7" 
+                    },
+                    { 
+                        "label": "I assume the system is not able to generate outputs such as predictions, content, recommendations, or decisions.",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "not_subject_to_AI_act" 
+                    }
+                ]
+            },
+
+        "7": {
+            "type": "decision",
+            "questions": "Is your IT system able to influence physical or virtual environments?",
+            "explanation": "influence_explanation.md",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "Your_system_is_an_AI_system" 
+                },
+                {
+                    "label": "No",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "7_unsure_followup"
+                }
+            ]
+        },
+
+            "7_unsure_followup": {
+                "type": "decision",
+                "question": "If you are unsure of whether your IT system is able to influence physical or virtual environments, we recommend one of two approaches:",
+                "options": [
+                    { 
+                        "label": "I assume the IT system is able to influence physical or virtual environments (recommended).",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "Your_system_is_an_AI_system" 
+                    },
+                    { 
+                        "label": "I assume the IT system is not able to influence physical or virtual environments",
+                        "actions": [ "log_and_time", "require_justification" ],
+                        "next": "not_subject_to_AI_act" 
+                    }
+                ]
+            },
+
+            "your_system_is_an_AI_system": {
+                "type": "end",
+                "message": "✅ Your system qualifies as an AI system under Article 3(1) of the AI Act.",
+                "actions": [ "log_and_time", "generate_report" ]
+            }
+        },
+
+    "auditability": {
+        "metadata": {
+            "activation": true,
+            "version": "1.0.0",
+            "last_updated": "2025-04-16T00:00:00Z",
+            "hash": "sha256-node-hash"
+        },
+        "trace_log_config": {
+            "track": true,
+            "fields": "ALL"
+        }
+    },
+    
+    "not_subject_to_the_AI_Act": {
+        "type": "decision",
+        "message": "This system is not subject to the AI Act.",
+        "actions": [ "log_and_time", "require_justification" ],
+        "next": "end_flow"
+    },
+
+    "end_flow": {
+    "type": "end",
+    "message": "Thank you for completing the assessment.",
+    "actions": [ "log_and_time", "generate_report" ]
+    }
+}
+

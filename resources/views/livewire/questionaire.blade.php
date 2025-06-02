@@ -1,11 +1,11 @@
-<div class="p-4 flex flex-col items-center">
+<div class="p-4 flex flex-col items-center gap-2">
     @if($proceedWithFlow)
     @if($currentNode)
-        <h2 class="text-xl font-semibold mb-4">{{ $currentNode['question'] ?? $currentNode['message'] }}</h2>
+        <flux:heading>{{ $currentNode['question'] ?? $currentNode['message'] }}</flux:heading>
 
-        @if(isset($currentNode['explanation']))
-            <p class="mb-2 text-sm text-gray-600">{{ $currentNode['explanation'] }}</p>
-    @endif
+        @if(isset($explanationText))
+            <flux:text>{{ $explanationText }}</flux:text>
+        @endif
     <div class="space-y-2 flex gap-2 flex-col">
         @foreach($currentNode['options'] ?? [] as $option)
             <flux:button
@@ -33,15 +33,19 @@
     </flux:textarea>
 
     <flux:button wire:click="submitJustification">Continue</flux:button>
+
     </div>
     @endif
     @if($completedFlow)
         <div class="flex flex-col mt-4 gap-4 items-center">
-            <h2 class="text-xl font-semibold mb-4">Flow Completed</h2>
-
             <a href="/questionnaire/{{ $session->id }}/report" target="_blank">
                 <flux:button>Download Results</flux:button>
             </a>
         </div>
+    @endif
+    @if(!empty($nodeHistory))
+    <div class="flex justify-between mt-6 gap-4">
+        <flux:button wire:click='goBack' icon='arrow-left'>Previous question</flux:button>
+    </div>
     @endif
 </div>

@@ -1,0 +1,14 @@
+{
+    "entry": "not_subject_to_the_AI_Act",
+    "nodes": {
+        "not_subject_to_the_AI_Act": {
+            "type": "decision",
+            "message": "This system is not subject to the AI Act.",
+            "actions": [
+              {"type": "log_and_time"},
+              {"type": "generate_certificate", "template": "AI_system_template"}
+            ],
+            "next": "end_flow"
+        }
+    }
+}

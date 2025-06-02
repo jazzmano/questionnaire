@@ -1,0 +1,253 @@
+{
+    "entry": "1",
+    "nodes": {
+        "1": {
+            "type": "decision",
+            "decision_id": "AIA3_machine_based_system",
+            "tags": ["machine-based", "system", "machine-based system", "AIA3"],
+            "jurisdiction": ["EU"],
+            "disclaimer": "This tool provides legal guidance only, not advice",
+            "question": "Is your IT system a machine-based system?",
+            "explanation": "machine_based_system_explanation.md",
+            "legal_reference": [
+                {
+                    "article": "AI Act Article 3(1)",
+                    "article_text": "AIA_article3_1.md",
+                    "relevant_article_text": "AIA_article3_1_1.md",
+                    "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+                }
+            ],
+
+            "interpretation": {
+                "summary": "plain_english_machine_based_system.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_machine_based_system.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines", 
+                        "relevant_text": "Commission_guidelines_machine_based_system.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+
+            "examples": [
+                { 
+                    "example": "smart_speaker_machine_based_system.md", 
+                    "answer": "Yes" 
+                },
+                { 
+                    "example": "smart_speaker_non_machine_based_system.md", 
+                    "answer": "No" 
+                }
+            ],
+
+
+            "options": [
+                {
+                    "label": "Yes.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "No.",
+                    "message": "If your system is not machine-based, it is not an AI-system.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "message": "Let us find out!",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "unsure_followup"
+                }
+            ],
+
+            "unsure_followup": {
+                "type": "decision",
+                "question": "What part are you unsure about?",
+                "options": [
+                    { 
+                        "label": "Unsure what 'machine-based' means.",
+                        "actions": "log_and_time", 
+                        "next": "ID_a" 
+                    },
+                    { 
+                        "label": "Unsure what 'system' means.",
+                        "actions": "log_and_time",
+                        "next": "ID_b" 
+                    }
+                ]
+            }
+        },
+
+        "AIA_3_1_ID_a_machine_based": {
+            "type": "decision",
+            "question": "Is your system 'machine-based'?",
+            "interpretation": {
+                "summary": "plain_english_machine_based.md",
+                "commentary": "summary_bullets_machine_based.md",
+                "full_commentary": "full_commentary_machine_based.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_machine_based.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines on the definition of an artificial intelligence system", 
+                        "relevant_text": "Commission_guidelines_machine_based.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+
+            "options": [
+                {
+                    "label": "Yes.",
+                    "examples": [
+                        { 
+                            "example": "cnc_machine_based.md",
+                            "answer": "Yes" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "1"
+                },
+
+                {
+                    "label": "No.",
+                    "examples": [
+                        { 
+                            "example": "manual_process_non_machine_based.md",   
+                            "answer": "No" 
+                        }
+                    ],
+                    "actions": [ 
+                        {
+                            "type": "log_and_time",
+                            "prompt": "require_justification"
+                        }
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "ID_a_unsure_followup"
+                }
+            ]
+        },
+
+        "AIA_3_1_ID_a_unsure_followup": {
+            "type": "decision",
+            "explanation": "unsure_machine_based_explanation.md",
+            "options": [
+                {
+                    "label": "I assume the system is machine-based (recommended).",
+                    "explanation": "pro_machine_based.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "5"
+                },
+                {
+                    "label": "I assume the system is not machine-based.",
+                    "explanation": "contra_machine_based.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "AIA_3_1_ID_b_system": {
+            "type": "decision",
+            "question": "Is your IT system a 'system'?",
+            "interpretation": {
+                "summary": "plain_english_system.md",
+                "commentary": "summary_bullets_system.md",
+                "full_commentary": "full_commentary_system.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_system.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines", 
+                        "relevant_text": "Commission_guidelines_system.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+            "options": [
+                {
+                    "label": "Yes.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_system.md",
+                            "answer": "Yes" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "1"
+                },
+                {
+                    "label": "No.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_non_system.md", 
+                            "answer": "No" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "ID_b_unsure_followup"
+                }
+            ]
+        },
+
+        "AIA_3_1_ID_b_unsure_followup": {
+            "type": "decision",
+            "explanation": "unsure_system_explanation.md",
+            "options": [
+                {
+                    "label": "I assume it is a 'system' (recommended).",
+                    "explanation": "pro_system.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "1"
+                },
+                {
+                    "label": "I assume it is not a 'system'.",
+                    "explanation": "contra_system.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                }
+            ]
+        }
+    },
+
+    "auditability": {
+        "metadata": {
+            "activation": true,
+            "version": "1.0.0",
+            "last_updated": "2025-04-16T00:00:00Z",
+            "hash": "sha256-node-hash"
+        },
+        
+        "trace_log_config": {
+            "track": true,
+            "fields": "ALL"
+        }
+    }
+}

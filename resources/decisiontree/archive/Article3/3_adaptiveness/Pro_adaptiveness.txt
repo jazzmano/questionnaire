@@ -1,0 +1,3 @@
+As adaptiveness is not determining for whether an AI system is indeed an AI system, there is no direct consequence related to labelling your system as being able to exhibit adaptiveness after deployment. 
+
+However, labelling your system as being able to exhibit adaptiveness after deployment will remind you to frequently reassess the risk of the system under the AI Act, as adaptive systems may evolve from posing no noteworthy risk under the AI Act into integrating prohibited practices or high-risk use cases. 

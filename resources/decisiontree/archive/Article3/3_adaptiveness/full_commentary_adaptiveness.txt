@@ -1,0 +1,22 @@
+It has been discussed among legal scholars whether a system's ability to adapt is mandatory for the system to classify as an AI system under Article 3(1) of the AI Act. This is not necessary. In other words, an IT system can be an AI system even if it is unable to learn, after it has been put into use. 
+
+Even though adaptiveness is not a determining factor in assessing whether an IT system classifies as an AI system, it is important to identify adaptiveness capabilities in any systems. If an AI system exhibits adaptiveness, the risk which it poses must be reassessed more often than for similar AI systems that does not exhibit adaptiveness. 
+
+---
+
+Article 3(1) of the AI Act mandates that an AI system "may" exhibit adaptiveness after deployment. Adaptiveness is not defined in the AI Act. However, in recitals 12 and 128 it is specified what is meant by the term. 
+
+In recital 12, it is outlined that the adaptiveness that an AI system could exhibit after deployment, refers to self-learning capabilities, allowing the system to change while in use. In recital 128, it is outlined that adaptiveness refers to the changes occurring to the algorithm and the performance of AI systems which continue to ‘learn’ after being placed on the market or put into service, namely automatically adapting how functions are carried out, should not constitute a substantial modification, provided that those changes have been pre-determined by the provider and assessed at the moment of the conformity assessment. 
+
+First, the use of "may" points to the requirement being flexible. In other words: A system does not need to be capable of adapting (learning) after deployment to be an AI system. A system that does not continuously learn, but fulfills the other requirements for being an AI system, is still an AI system. 
+
+Second, in recital 12 the use of the word "could" indicates that not all AI systems exhibit adaptiveness after deployment and, consequently, that it is therefore no requirement. 
+
+Third, in the Commission Guidelines on the definition of an artificial intelligence system (link), section 23, it is outlined that te use of the term ‘may’ in relation to adaptiveness indicates that a system may, but does not necessarily have to, possess adaptiveness or self-learning capabilities after deployment to constitute an AI system. Accordingly, a system’s ability to automatically learn, discover new patterns, or identify relationships in the data beyond what it was initially trained on is a facultative and thus not a decisive condition for determining whether the system qualifies as an AI system
+ 
+Adaptiveness (link) and autonomy are not the same. As per the Commission Guidelines on the definition of an artificial intelligence system (link), section 22, ‘adaptiveness’ refers to self-learning capabilities, allowing the behaviour of the system to change while in use. The new behaviour of the adapted system may produce different results from the previous system for the same inputs. Autonomy on the other hand means the system's independence from humans, as per section 14 (link). 
+
+In short, while adaptiveness (ongoing self-learning) is a noteworthy feature of many AI systems, its presence is not a strict requirement. An AI system can be either adaptive or non-adaptive and still be considered an AI system under the AI Act.
+
+
+

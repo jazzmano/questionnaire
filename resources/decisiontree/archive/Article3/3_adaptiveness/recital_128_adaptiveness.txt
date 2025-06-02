@@ -1,0 +1,2 @@
+However, changes occurring to the algorithm and the performance of AI systems which continue to ‘learn’ after being placed on the market or put into service, namely automatically adapting how functions are carried out, should not constitute a substantial modification, provided that those changes have been pre-determined by the provider and assessed at the moment of the conformity assessment.
+

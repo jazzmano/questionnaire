@@ -1,0 +1,300 @@
+{
+    "entry": "5",
+    "nodes": {
+        "5": {
+            "type": "decision",
+            "questions": "Does you IT system infer, from the input it receives, how to generate outputs?",
+            "explanation": "Inference_intro.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6" 
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt":"Please, justify your decision"}
+                    ],
+                    "next": "don't_know_followup"
+                }
+            ]
+        },
+        
+        "dont_know_followup": {
+            "type": "decision",
+            "question": "What part are you unsure about?",
+            "options": [
+                {
+                    "label": "I am unsure what is meant by 'infer'.",
+                    "action": "log_and_time",
+                    "next": "5a"
+                },
+                {
+                    "label": "I am unsure what is meant by 'input'.",
+                    "action": "log_and_time",
+                    "next": "5b"
+                },
+                {
+                    "label": "I am unsure what is meant by 'generate' outputs.",
+                    "action": "log_and_time",
+                    "next": "5c"
+                },
+                {
+                    "label": "I am unsure what is meant by generate 'outputs'.",
+                    "action": "log_and_time",
+                    "next": "5d"
+                }
+            ]
+        },
+
+        "5a": {
+            "type": "decision",
+            "question": "Can your IT system have the capacity to 'infer', from the input it receives, how to generate outputs?",
+            "explanation": "Inference_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5a_dont_know_followup"
+                }
+            ]           
+        },
+
+        "5a_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_inference_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system is able to 'infer', from the input it receives, how to generate outputs (recommended).",
+                    "explanation": "Pro_inference.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "5"
+                  },
+                  {
+                    "label": "I assume that the system is not able to 'infer', from the input it receives, how to generate outputs.", 
+                    "explanation": "Contra_inference.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "5b": {
+            "type": "decision",
+            "question": "Does your IT system have the capacity to infer, from the 'input' it receives, how to generate outputs?",
+            "explanation": "Input_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5b_dont_know_followup"
+                }
+            ]           
+        },
+
+        "5b_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_input_followup.txt",
+            "options": [
+                {
+                    "label": "I assume the system receives 'input' (recommended).",
+                    "explanation": "Pro_input.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume the system does not receive 'input'.", 
+                    "explanation": "Contra_input.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "5c": {
+            "type": "decision",
+            "question": "Can the system 'generate' outputs?",
+            "explanation": "Generate_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5c_dont_know_followup"
+                }
+            ]           
+        },
+
+        "5c_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_generate_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system has the ability to 'generate' outputs (recommended).",
+                    "explanation": "Pro_generate.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume that the system does not have the ability to 'generate' outputs.", 
+                    "explanation": "Contra_generate.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "5d": {
+            "type": "decision",
+            "question": "Can the system generate 'outputs'?",
+            "explanation": "Outputs_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5d_dont_know_followup"
+                }
+            ]           
+        },
+
+        "5d_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_outputs_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system has the ability to generate 'outputs' (recommended).",
+                    "explanation": "Pro_outputs.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume that the system does not have the ability to generate 'outputs'.", 
+                    "explanation": "Contra_outputs.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,3 @@
+Adaptiveness means an AI system can continue learning and changing after it has been deployed. Under Article 3(1) of the AI Act, this feature is not required for a system to be considered an AI system. The law uses the word "may" to show that adaptiveness is optional. This has been confirmed in the Act's recitals (recitals 12 and 128) and the Commission’s guidelines on the definition of an artificial intelligence system (sections 22 and 23). 
+
+In short, an AI system does not need to be adaptive to fall under the AI Act, but if it is adaptive, extra care must be taken to monitor how it behaves over time, as the system can then, for example, evolve into forbidden practices or high-risk use-cases. 

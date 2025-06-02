@@ -1,0 +1,405 @@
+{
+    "entry": "1",
+    "nodes": {
+        "2": {
+            "type": "decision",
+            "decision_id": "AIA3_autonomy",
+            "tags": ["autonomy"],
+            "jurisdiction": ["EU"],
+            "disclaimer": "This tool provides legal guidance only, not advice",
+            "question": "Is your IT system designed to operate with a varying level of autonomy?",
+            "explanation": "autonomy_explanation.md",
+            "legal_reference": [
+                {
+                    "article": "AI Act Article 3(1)",
+                    "article_text": "AIA_article3_1.md",
+                    "relevant_article_text": "AIA_article3_1_2.md",
+                    "source": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+                }
+            ],
+
+            "interpretation": {
+                "summary": "plain_english_autonomy.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_autonomy.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines", 
+                        "relevant_text": "commission_guidelines_autonomy.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+
+            "examples": [
+                { 
+                    "example": "car_autonomy.md", 
+                    "answer": "Yes" 
+                },
+                { 
+                    "example": "car_non_autonomy.md", 
+                    "answer": "No" 
+                }
+            ],
+
+
+            "options": [
+                {
+                    "label": "Yes.",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "3"
+                },
+                {
+                    "label": "No.",
+                    "message": "If your system is not designed to operate with a varying level of autonomy, it is not an AI-system.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "message": "Let us find out!",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "unsure_followup"
+                }
+            ],
+
+            "unsure_followup": {
+                "type": "decision",
+                "question": "What part are you unsure about?",
+                "options": [
+                    {
+                        "label": "I don't know what is meant by 'designed' to operate.",
+                        "action": "log_and_time",
+                        "next": "AIA_3_2_ID_a_designed"
+                    },
+                    {
+                        "label": "I don't know what is meant by designed to 'operate'.",
+                        "action": "log_and_time",
+                        "next": "AIA_3_2_ID_b_operate"
+                    },
+                    {
+                        "label": "I dont know was is meant by 'varying levels'.",
+                        "action": "log_and_time",
+                        "next": "AIA_3_2_ID_c_varying_levels"
+                    },
+                    {
+                        "label": "I don't know what is meant by 'autonomy'.",
+                        "action": "log_and_time",
+                        "next": "AIA_3_2_ID_d_autonomy"
+                    }
+                ]
+    
+            }
+        },
+
+        "AIA_3_2_ID_a_designed": {
+            "type": "decision",
+            "question": "Is your system 'designed' to operate with varying levels of autonomy?",
+            "interpretation": {
+                "summary": "plain_english_designed.md",
+                "commentary": "summary_bullets_designed.md",
+                "full_commentary": "full_commentary_designed.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_designed.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines on the definition of an artificial intelligence system", 
+                        "relevant_text": "commission_guidelines_designed.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+
+            "options": [
+                {
+                    "label": "Yes.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_designed.md",
+                            "answer": "Yes" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+
+                {
+                    "label": "No.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_non_designed.md",   
+                            "answer": "No" 
+                        }
+                    ],
+                    "actions": [ 
+                        {
+                            "type": "log_and_time",
+                            "prompt": "require_justification"
+                        }
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "AIA_3_2_ID_a_unsure_followup"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_a_unsure_followup": {
+            "type": "decision",
+            "explanation": "unsure_designed.md",
+            "options": [
+                {
+                    "label": "I assume the system is 'designed' to operate with varying levels of autonomy (recommended).",
+                    "explanation": "pro_designed.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "I assume the system is not 'designed' to operate with varying levels of autonomy.",
+                    "explanation": "contra_designed.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_b_operate": {
+            "type": "decision",
+            "question": "Is your system designed to 'operate' with varying levels of autonomy?",
+            "interpretation": {
+                "summary": "plain_english_operate.md",
+                "commentary": "summary_bullets_operate.md",
+                "full_commentary": "full_commentary_operate.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_operate.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines", 
+                        "relevant_text": "commission_guidelines_operate.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+            "options": [
+                {
+                    "label": "Yes.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_operate.md",
+                            "answer": "Yes" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "No.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_non_operate.md", 
+                            "answer": "No" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "AIA_3_2_ID_b_unsure_followup"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_b_unsure_followup": {
+            "type": "decision",
+            "explanation": "unsure_operate_explanation.md",
+            "options": [
+                {
+                    "label": "I assume the system is designed to 'operate' with varying levels of autonomy (recommended).",
+                    "explanation": "pro_operate.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "I assume the system is not designed to 'operate' with varying levels of autonomy.",
+                    "explanation": "contra_operate.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_c_varying_levels": {
+            "type": "decision",
+            "question": "Is your system designed to operate with 'varying levels' of autonomy?",
+            "interpretation": {
+                "summary": "plain_english_varying_levels.md",
+                "commentary": "summary_bullets_varying_levels.md",
+                "full_commentary": "full_commentary_varying_levels.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_varying_levels.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines", 
+                        "relevant_text": "commission_guidelines_varying_levels.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+            "options": [
+                {
+                    "label": "Yes.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_varying_levels.md",
+                            "answer": "Yes" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "No.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_non_varying_levels.md", 
+                            "answer": "No" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "AIA_3_2_ID_c_unsure_followup"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_c_unsure_followup": {
+            "type": "decision",
+            "explanation": "unsure_varying_levels_explanation.md",
+            "options": [
+                {
+                    "label": "I assume the system is designed to operate with 'varying levels' of autonomy (recommended).",
+                    "explanation": "pro_varying_levels.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "I assume the system is not designed to operate with 'varying levels' of autonomy.",
+                    "explanation": "contra_varying_levels.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_d_autonomy": {
+            "type": "decision",
+            "question": "Is your system designed to operate with varying levels of 'autonomy'?",
+            "interpretation": {
+                "summary": "plain_english_autonomy.md",
+                "commentary": "summary_bullets_autonomy.md",
+                "full_commentary": "full_commentary_autonomy.md",
+                "legal_basis": [
+                    { 
+                        "source": "Recital 12", 
+                        "text": "recital_12.md", 
+                        "relevant_text": "recital_12_autonomy.md",
+                        "link": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng" 
+                    },
+                    { 
+                        "source": "Commission Guidelines", 
+                        "relevant_text": "commission_guidelines_autonomy.md", 
+                        "link": "https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines-ai-system-definition-facilitate-first-ai-acts-rules-application" 
+                    }
+                ]
+            },
+            "options": [
+                {
+                    "label": "Yes.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_autonomy.md",
+                            "answer": "Yes" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "2"
+                },
+                {
+                    "label": "No.",
+                    "examples": [
+                        { 
+                            "example": "chatbot_non_autonomy.md", 
+                            "answer": "No" 
+                        }
+                    ],
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Unsure.",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "AIA_3_2_ID_d_unsure_followup"
+                }
+            ]
+        },
+
+        "AIA_3_2_ID_d_unsure_followup": {
+            "type": "decision",
+            "explanation": "unsure_autonomy_explanation.md",
+            "options": [
+                {
+                    "label": "I assume the system is designed to operate with varying levels of 'autonomy' (recommended).",
+                    "explanation": "pro_autonomy.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "1"
+                },
+                {
+                    "label": "I assume the system is not designed to operate with varying levels of 'autonomy'.",
+                    "explanation": "contra_autonomy.md",
+                    "actions": [ "log_and_time", "require_justification" ],
+                    "next": "not_subject_to_the_AI_Act"
+                }
+            ]
+        }
+    },
+
+    "auditability": {
+        "metadata": {
+            "activation": true,
+            "version": "1.0.0",
+            "last_updated": "2025-04-16T00:00:00Z",
+            "hash": "sha256-node-hash"
+        },
+        "trace_log_config": {
+            "track": true,
+            "fields": "ALL"
+        }
+    }
+}

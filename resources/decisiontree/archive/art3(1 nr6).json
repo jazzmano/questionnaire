@@ -1,0 +1,364 @@
+{
+    "entry": "6",
+    "nodes": {
+        "5": {
+            "type": "decision",
+            "questions": "Can your IT system generate outputs such as predictions, content, recommendations, or decisions?",
+            "explanation": "Generations_of_outputs_intro.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7" 
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt":"Please, justify your decision"}
+                    ],
+                    "next": "don't_know_followup"
+                }
+            ]
+        },
+        
+        "dont_know_followup_6": {
+            "type": "decision",
+            "question": "What part are you unsure about?",
+            "options": [
+                {
+                    "label": "I am unsere what 'such as' means.",
+                    "action": "log_and_time",
+                    "next": "6a"
+                },
+                {
+                    "label": "I am unsure what is meant by generate 'predictions'.",
+                    "action": "log_and_time",
+                    "next": "6b"
+                },
+                {
+                    "label": "I am unsure what is meant by generate 'content'.",
+                    "action": "log_and_time",
+                    "next": "6c"
+                },
+                {
+                    "label": "I am unsure what is meant by generate 'recommendations'.",
+                    "action": "log_and_time",
+                    "next": "6d"
+                },
+                {
+                    "label": "I am unsure what is meant by generate 'decisions'.",
+                    "action": "log_and_time",
+                    "next": "6e"
+                }
+            ]
+        },
+
+        "6a": {
+            "type": "decision",
+            "question": "Can the system generate some form of output?",
+            "explanation": "Such_as_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6a_dont_know_followup"
+                }
+            ]           
+        },
+
+        "6a_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_such_as_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system is able to generate a form of output (recommended).",
+                    "explanation": "Pro_such_as.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "5"
+                  },
+                  {
+                    "label": "I assume that the system is not able to generate a form of output", 
+                    "explanation": "Contra_such_as.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "6b": {
+            "type": "decision",
+            "question": "Can your system generate predictions?",
+            "explanation": "Predictions_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6b_dont_know_followup"
+                }
+            ]           
+        },
+
+        "6b_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_predictions_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system is able to generate predictions (recommended).",
+                    "explanation": "Pro_predictions.txt.",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume that the system is not able to generate predictions.", 
+                    "explanation": "Contra_predictions.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "6c": {
+            "type": "decision",
+            "question": "Can the system generate content?",
+            "explanation": "Content_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6c_dont_know_followup"
+                }
+            ]           
+        },
+
+        "6c_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_content_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system is able to generate content (recommended).",
+                    "explanation": "Pro_content.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "6"
+                  },
+                  {
+                    "label": "I assume that the system is not able to generate content.", 
+                    "explanation": "Contra_content.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "6d": {
+            "type": "decision",
+            "question": "Can the system generate recommendations?",
+            "explanation": "Recommendations_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6d_dont_know_followup"
+                }
+            ]           
+        },
+
+        "6d_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_recommendations_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system is able to generate recommendations (recommended).",
+                    "explanation": "Pro_recommendations.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume that the system is not able to generate recommendations.", 
+                    "explanation": "Contra_recommendations.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "6e": {
+            "type": "decision",
+            "question": "Can the system generate decisions?",
+            "explanation": "Decisions_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "6e_dont_know_followup"
+                }
+            ]           
+        },
+
+        "6e_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_decisions_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that the system is able to generate decisions (recommended).",
+                    "explanation": "Pro_decisions.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume that the system is not able to generate decisions.", 
+                    "explanation": "Contra_decisions.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        }
+    }
+}

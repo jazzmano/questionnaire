@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\QuestionnaireAction;
 use Livewire\Component;
 use App\Models\QuestionnaireSession;
 use Illuminate\Support\Facades\Auth;
-use App\Models\QuestionnaireAction;
 
 class Questionaire extends Component
 {
@@ -21,6 +21,8 @@ class Questionaire extends Component
     public $pendingActions;
     public $completedFlow = false;
     public $fileContents;
+    public $explanationText;
+    public $nodeHistory = [];
 
     public function mount()
     {
@@ -29,10 +31,17 @@ class Questionaire extends Component
         $this->currentNodeKey = json_decode($this->fileContents, true)['entry'] ?? '0';
         $this->currentNode = $this->data[$this->currentNodeKey];
         $this->session = QuestionnaireSession::create(['user_id' => Auth::user()->id, 'final_node_key' => null, 'started_at' => now()]);
+        $this->explanationText = $this->currentNode['explanation'] ?? '';
     }
 
     public function selectOption($nextNodeKey, $actions = null, $answer = null)
     {
+        if(isset($this->currentNode['explanation'])){
+            $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
+        } else {
+            $this->explanationText = 'Missing exaplanation';
+        }
+
         if ($nextNodeKey === 'your_system_is_an_AI_system' || $nextNodeKey === 'not_subject_to_the_AI_Act') {
             $this->session->final_node_key = $nextNodeKey;
             $this->session->completed_at = now();
@@ -53,7 +62,7 @@ class Questionaire extends Component
             }
         }
 
-        // If no justification needed, continue immediately
+
         $this->finalizeStep(null);
     }
 
@@ -69,6 +78,26 @@ class Questionaire extends Component
     {
         return $this->redirect("/questionnaire/{$this->session->id}/report", navigate: true);
     }
+    public function markdownFileContents($fileName)
+    {
+        if  (file_exists(resource_path("decisiontree/{$fileName}"))) {
+            return file_get_contents(resource_path("decisiontree/{$fileName}"));
+        }
+        else{
+            return $fileName;
+        }
+    }
+
+    public function goBack()
+    {
+        array_pop($this->nodeHistory);
+        $this->currentNodeKey = end($this->nodeHistory);
+        $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
+        QuestionnaireAction::where(
+            'questionnaire_session_id', $this->session->id
+        )->where('node_key', $this->currentNodeKey)->delete();
+
+    }
 
     protected function finalizeStep($justification = null)
     {
@@ -80,11 +109,13 @@ class Questionaire extends Component
         ]);
 
         if (isset($this->data[$this->pendingNodeKey])) {
+            $this->nodeHistory[] = $this->currentNodeKey;
             $this->currentNodeKey = $this->pendingNodeKey;
             $this->currentNode = $this->data[$this->pendingNodeKey];
 
             if (($this->currentNode['next'] ?? null) === 'end_flow') {
                 $this->completedFlow = true;
+                $this->explanationText = '';
             }
         }
 

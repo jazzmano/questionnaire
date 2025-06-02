@@ -1,0 +1,236 @@
+{
+    "entry": "7",
+    "nodes": {
+        "7": {
+            "type": "decision",
+            "questions": "Is your IT system able to influence physical or virtual environments?",
+            "explanation": "Influence_intro.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "Your_system_is_an_AI-system" 
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt":"Please, justify your decision"}
+                    ],
+                    "next": "don't_know_followup"
+                }
+            ]
+        },
+        
+        "dont_know_followup": {
+            "type": "decision",
+            "question": "What part are you unsure about?",
+            "options": [
+                {
+                    "label": "I am unsure what is meant by 'influence'.",
+                    "action": "log_and_time",
+                    "next": "7a"
+                },
+                {
+                    "label": "I am unsure what is meant by 'physical environment'.",
+                    "action": "log_and_time",
+                    "next": "7b"
+                },
+                {
+                    "label": "I am unsure what is meant by 'virtual environment'.",
+                    "action": "log_and_time",
+                    "next": "7c"
+                }
+            ]
+        },
+
+        "7a": {
+            "type": "decision",
+            "question": "Is your system able to 'influence' environments?",
+            "explanation": "Influence_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7a_dont_know_followup"
+                }
+            ]           
+        },
+
+        "7a_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_influence_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that my system has the ability to 'influence' something (recommended).",
+                    "explanation": "Pro_influence.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "4"
+                  },
+                  {
+                    "label": "I assume that my system does not have the ability to 'influence' something.", 
+                    "explanation": "Contra_influence.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+        
+        "7b": {
+            "type": "decision",
+            "question": "Is that, which your system can influence, a 'physical environment'?",
+            "explanation": "Physical_environment_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7b_dont_know_followup"
+                }
+            ]           
+        },
+
+        "7b_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_physical_environment_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that my system has the ability to influence a 'physical environment' (recommended).",
+                    "explanation": "Pro_physical_environment.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "7"
+                  },
+                  {
+                    "label": "I assume that my system does not have the ability to influence a 'physical environment'.", 
+                    "explanation": "Contra_physical_environment.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "7c": {
+            "type": "decision",
+            "question": "Is that, which your system can influence, a 'virtual environment'?",
+            "explanation": "Virtual_environment_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "7c_dont_know_followup"
+                }
+            ]           
+        },
+
+        "7c_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_virtual_environment_followup.txt",
+            "options": [
+                {
+                    "label": "I assume that my system has the ability to influence a 'virtual environment' (recommended).",
+                    "explanation": "Pro_virtual_environment.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "7"
+                  },
+                  {
+                    "label": "I assume that my system does not have the ability to influence a 'virtual environment'.", 
+                    "explanation": "Contra_virtual_environment.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,246 @@
+{
+    "entry": "4",
+    "nodes": {
+        "4": {
+            "type": "decision",
+            "questions": "Is your system designed to operate according to one or more implicit or explicit objectives?",
+            "explanation": "Objectives_intro_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "5" 
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt":"Please, justify your decision"}
+                    ],
+                    "next": "don't_know_followup"
+                }
+            ]
+        },
+        
+        "dont_know_followup": {
+            "type": "decision",
+            "question": "What part are you unsure about?",
+            "options": [
+                {
+                    "label": "I don't know what is meant by 'designed' to operate.",
+                    "action": "log_and_time",
+                    "next": "2a"
+                },
+                {
+                    "label": "I don't know what is meant by designed to 'operate'.",
+                    "action": "log_and_time",
+                    "next": "2b"
+                },
+                {
+                    "label": "I dont know was is meant by 'objectives'.",
+                    "action": "log_and_time",
+                    "next": "4a"
+                },
+                {
+                    "label": "I don't know what is meant by 'implicit objective'.",
+                    "action": "log_and_time",
+                    "next": "4b"
+                },
+                {
+                    "label": "I don't know what is meant by 'explicit objective'.",
+                    "action": "log_and_time",
+                    "next": "4c"
+                }
+            ]
+        },
+
+        "4a": {
+            "type": "decision",
+            "question": "Is your system designed to operate according to one or more implicit or explicit 'objectives'?",
+            "explanation": "Objectives_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4a_dont_know_followup"
+                }
+            ]           
+        },
+
+        "4a_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_objectives_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is designed to operate according to one or more implicit or explicit 'objectives' (recommended)",
+                    "explanation": "Pro_objectives.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "4"
+                  },
+                  {
+                    "label": "I assume, the system is not designed to operate according to one or more implicit or explicit 'objectives'", 
+                    "explanation": "Contra_objectives.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+        
+        "4b": {
+            "type": "decision",
+            "question": "Is your system designed to operate according to one or more 'implicit' or explicit objectives?",
+            "explanation": "Implicit_objectives_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4b_dont_know_followup"
+                }
+            ]           
+        },
+
+        "4b_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_implicit_objectives_explanation_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is esigned to operate according to one or more 'implicit' or explicit objectives (recommended)",
+                    "explanation": "Pro_implicit_objectives.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume, the system is not esigned to operate according to one or more 'implicit' or explicit objectives", 
+                    "explanation": "Contra_implicit_objectives.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        },
+
+        "4c": {
+            "type": "decision",
+            "question": "Is your system designed to operate according to one or more implicit or 'explicit' objectives?",
+            "explanation": "Explicit_objectives_explanation.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_the_AI_Act"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4c_dont_know_followup"
+                }
+            ]           
+        },
+
+        "4c_dont_know_followup": {
+            "label": "decision",
+            "explanation": "Dont_know_explicit_objectives_followup.txt",
+            "options": [
+                {
+                    "label": "I assume, the system is esigned to operate according to one or more implicit or 'explicit' objectives (recommended)",
+                    "explanation": "Pro_explicit_objective.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "2"
+                  },
+                  {
+                    "label": "I assume, the system is not esigned to operate according to one or more implicit or 'explicit' objectives (recommended)", 
+                    "explanation": "Contra_explicit_objective.txt",
+                    "actions": 
+                    [
+                      { "type": "log_and_time" },
+                      { "type": "require_justification", "prompt": "Please, justify your decision" }
+                    ],
+                    "next": "not_subject_to_the_AI_act"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,69 @@
+{
+    "entry": "3", 
+    "nodes": {
+        "3": {
+            "type": "decision",
+            "question": "Is your IT-system able to exhibit adaptiveness after deployment?",
+            "explanation": "Adaptiveness_intro.txt",
+            "options": [
+                {
+                    "label": "Yes",
+                    "message": "Proceed with the validated system process.",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4" 
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                },
+                {
+                    "label": "Don't know",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt":"Please, justify your decision"}
+                    ],
+                    "next": "3a"
+                }
+            ]
+        },
+        "3a": {
+            "type": "decision",
+            "question": "Is the system able to adapt itself while it is being used?",
+            "explanation": "Adaptiveness_explanation.txt", 
+            "options": [
+                {
+                    "label": "Yes", 
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                },
+                {
+                    "label": "Don't know",
+                    "message": "Adaptability is no requirement, therefore we will just log it as 'don't know'. However...",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "4"
+                }
+            ]           
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "entry": "0",
+    "nodes": {
+        "0": {
+            "type": "decision", 
+            "explanation": "To decide if what you are dealing with is an AI-system, your system must check of seven boxes...",
+            "question": "Is your system an AI system according to Article 3(1) of the AI Act?",
+            "options": [
+                {
+                    "label": "Yes",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type": "require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "end_flow"
+                },
+                {
+                    "label": "No",
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type":"require_justification", "prompt": "Please, justify your decision"}
+                    ],
+                    "next": "not_subject_to_AI_act"
+                },
+                {
+                    "label": "Don't know",
+                    "explanation": "What parts are you unsure about (you can select more)",
+                    "multi_select": true,
+                    "options": [
+                        {
+                            "label": "I don't know, what I don't know - just take me through it all.",
+                            "action": "log_and_time",
+                            "next": "1"
+                        },
+                        {
+                            "label": "I don't know if I fulfil the 'machine-based system'-criteria",
+                            "action": "log_and_time",
+                            "next": "1"
+                        },
+                        {
+                            "label": "I don't know if my system has the necessary level of autonomy",
+                            "action": "log_and_time",
+                            "next": "2"
+                        },
+                        {
+                            "label": "I don't know, whether my system can adapt/learn from the use of it",
+                            "action": "log_and_time",
+                            "next": "3"
+                        },
+                        {
+                            "label": "I don't know, if the AI-system is designed to operate according to one or more objectives",
+                            "action": "log_and_time",
+                            "next": "4"
+                        },
+                        {
+                            "label": "I don't know if the system has inference capability.",
+                            "action": "log_and_time",
+                            "next": "5"
+                        },
+                        {
+                            "label": "I don't know if the system can generate outputs",
+                            "action": "log_and_time",
+                            "next": "6"
+                        },
+                        {
+                            "label": "I don't know if the system can influence physical or virtual environments",
+                            "action": "log_and_time",
+                            "next": "7"
+                        }
+                    ],
+
+                    "actions": [
+                        {"type": "log_and_time"},
+                        {"type":"require_justification", "prompt": "Please, justify your decision"}
+                    ]
+                }
+            ]
+        }
+    }
+}

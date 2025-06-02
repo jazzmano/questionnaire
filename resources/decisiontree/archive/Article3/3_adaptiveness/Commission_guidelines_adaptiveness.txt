@@ -1,0 +1,15 @@
+3. Adaptiveness
+
+(22) The third element of the definition in Article 3(1) AI Act is that the system ‘may exhibit adaptiveness after deployment’. The concepts of autonomy and adaptiveness are two 
+distinct but closely related concepts. They are often discussed together but they represent 
+different dimensions of an AI system’s functionality. Recital 12 AI Act clarifies that 
+‘adaptiveness’ refers to self-learning capabilities, allowing the behaviour of the system 
+to change while in use. The new behaviour of the adapted system may produce different 
+results from the previous system for the same inputs. 
+
+(23) The use of the term ‘may’ in relation to this element of the definition indicates that a 
+system may, but does not necessarily have to, possess adaptiveness or self-learning 
+capabilities after deployment to constitute an AI system. Accordingly, a system’s ability 
+to automatically learn, discover new patterns, or identify relationships in the data beyond 
+what it was initially trained on is a facultative and thus not a decisive condition for 
+determining whether the system qualifies as an AI system.

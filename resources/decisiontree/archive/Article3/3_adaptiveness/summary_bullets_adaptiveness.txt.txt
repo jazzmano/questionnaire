@@ -1,0 +1,9 @@
+- Adaptiveness (self-learning capability) is not mandatory for classifying an IT system as an AI under Article 3(1) AI Act.
+
+- Recitals 12 and 128 clarify adaptiveness as changes occurring post-deployment due to self-learning.
+
+- Identifying adaptiveness is important, as adaptive AI systems need more frequent risk assessments.
+
+- Adaptiveness differs from autonomy: adaptiveness involves learning, whereas autonomy means independence from human control.
+
+- Commission Guidelines on the definition of an artificial intelligence system, sections 22 and 23. 
