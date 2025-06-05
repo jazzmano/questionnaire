@@ -36,12 +36,6 @@ class Questionaire extends Component
 
     public function selectOption($nextNodeKey, $actions = null, $answer = null)
     {
-        if(isset($this->currentNode['explanation'])){
-            $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
-        } else {
-            $this->explanationText = 'Missing exaplanation';
-        }
-
         if ($nextNodeKey === 'your_system_is_an_AI_system' || $nextNodeKey === 'not_subject_to_the_AI_Act') {
             $this->session->final_node_key = $nextNodeKey;
             $this->session->completed_at = now();
@@ -90,13 +84,38 @@ class Questionaire extends Component
 
     public function goBack()
     {
-        array_pop($this->nodeHistory);
-        $this->currentNodeKey = end($this->nodeHistory);
-        $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
-        QuestionnaireAction::where(
-            'questionnaire_session_id', $this->session->id
-        )->where('node_key', $this->currentNodeKey)->delete();
+        // Pop current node (we're stepping back from this one)
+        $lastNodeKey = array_pop($this->nodeHistory);
 
+        // If the history is now empty, reset to the entry node
+        if (empty($this->nodeHistory)) {
+            $this->currentNodeKey = json_decode($this->fileContents, true)['entry'] ?? '0';
+        } else {
+            // Otherwise, get the previous node
+            $this->currentNodeKey = end($this->nodeHistory);
+        }
+
+        // Load the current node data
+        $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
+
+        // Update explanation text
+        if (isset($this->currentNode['explanation'])) {
+            $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
+        } else {
+            $this->explanationText = 'Missing explanation';
+        }
+
+        // Remove the QuestionnaireAction for the node we just "backed out" of
+        if ($lastNodeKey) {
+            QuestionnaireAction::where('questionnaire_session_id', $this->session->id)
+                ->where('node_key', $lastNodeKey)
+                ->delete();
+        }
+
+        // Reset state flags
+        $this->requiresJustification = false;
+        $this->proceedWithFlow = true;
+        $this->completedFlow = false;
     }
 
     protected function finalizeStep($justification = null)
@@ -107,11 +126,16 @@ class Questionaire extends Component
             'selected_option' => $this->pendingAnswer,
             'justification' => $justification,
         ]);
-
         if (isset($this->data[$this->pendingNodeKey])) {
-            $this->nodeHistory[] = $this->currentNodeKey;
             $this->currentNodeKey = $this->pendingNodeKey;
             $this->currentNode = $this->data[$this->pendingNodeKey];
+            $this->nodeHistory[] = $this->currentNodeKey;
+
+            if(isset($this->currentNode['explanation'])){
+                $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
+            } else {
+                $this->explanationText = 'Missing explanation';
+            }
 
             if (($this->currentNode['next'] ?? null) === 'end_flow') {
                 $this->completedFlow = true;
@@ -123,15 +147,6 @@ class Questionaire extends Component
         $this->pendingNodeKey = null;
         $this->pendingAnswer = null;
         $this->pendingActions = null;
-    }
-    public function logAndTime()
-    {
-        // TODO: Implement logging and timing functionality
-    }
-
-    public function requireJustification()
-    {
-        // TODO: Implement justification requirement functionality
     }
 
     public function render()

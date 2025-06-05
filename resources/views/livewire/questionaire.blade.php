@@ -1,7 +1,7 @@
 <div class="p-4 flex flex-col items-center gap-2">
     @if($proceedWithFlow)
     @if($currentNode)
-        <flux:heading>{{ $currentNode['question'] ?? $currentNode['message'] }}</flux:heading>
+        <flux:heading>{{ $currentNode['question'] ?? $currentNode['message'] ?? 'No content available' }}</flux:heading>
 
         @if(isset($explanationText))
             <flux:text>{{ $explanationText }}</flux:text>
