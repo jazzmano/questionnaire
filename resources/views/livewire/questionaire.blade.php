@@ -1,14 +1,17 @@
 <div class="p-4 flex flex-col items-center gap-2">
     @if($proceedWithFlow)
     @if($currentNode)
-        <flux:heading>{{ $currentNode['question'] ?? $currentNode['message'] ?? 'No content available' }}</flux:heading>
+        <div class="flex flex-col items-center gap-4 mb-4">
+        <flux:heading size="xl">{{ $currentNode['question'] ?? $currentNode['message'] ?? 'No content available' }}</flux:heading>
 
         @if(isset($explanationText))
-            <flux:text>{{ $explanationText }}</flux:text>
+            <flux:text>{!! $explanationText !!}</flux:text>
         @endif
+        </div>
     <div class="space-y-2 flex gap-2 flex-col">
         @foreach($currentNode['options'] ?? [] as $option)
             <flux:button
+                variant="primary"
                 wire:click='selectOption(
                     {{ json_encode($option["next"] ?? "") }},
                     {{ json_encode($option["actions"] ?? []) }},
@@ -25,7 +28,7 @@
         @endif
     @endif
     @if($requiresJustification)
-    <div class="flex flex-col items-center  gap-4">
+    <div class="flex flex-col items-center gap-4 w-1/2">
     <flux:textarea
         wire:model="justification_text"
         placeholder="Please provide your justification here..."
@@ -45,7 +48,7 @@
     @endif
     @if(!empty($nodeHistory))
     <div class="flex justify-between mt-6 gap-4">
-        <flux:button wire:click='goBack' icon='arrow-left'>Previous question</flux:button>
+        <flux:button variant="ghost" wire:click='goBack' icon='arrow-left'>Previous question</flux:button>
     </div>
     @endif
 </div>

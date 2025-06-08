@@ -1,22 +1,18 @@
-If you are unsure whether your system infer, from the input it receives, how to generate outputs, you have two choices:
+If you are unsure whether your system is able to able to influence physical or virtual environments, you have two choices:
 
-1. **Assume it does infer how to generate outputs (recommended).**
+1. **Assume it is able to influence physical or virtual environments (recommended).**
 
-2. **Assume it does *not* infer how to generate outputs.
+2. **Assume it is not able to influence physical or virtual environments.**
 
-We recommend you assume it *does*.
+We recommend you assume it _is_.
 
 **Why?**  
-AI systems must be able to figure out how to turn inputs into outputs. 'Inference' can be thought of as the AI systems ability to think. This inference capability can be present both when the AI system is being *developed* and when it is being *used*. 
-
-During the **development phase**, an AI system can figure out algorithms or models from the data it is trained on. Think of it as the AI system getting a recipe of how the world works based on the training data it sees.  
-
-During the use phase, an AI system must be able to figure out what to do with the inputs it receives. If you use an AI-system like ChatGPT, your prompt is your input, and ChatGPT must then figure out what to do with it. *That* is inference. 
+Reference to ‘physical or virtual environments’ indicates that the influence of an AI system may be both to tangible, physical objects (e.g. robot arm) and to virtual environments, including digital spaces, data flows, and software ecosystems. AI systems must be able to influence their environments, which means that they must have impact. An AI system that does not operate a physical object or does not influence the software it is implemented into does not influence anything.
 
 **Consideration - for and against**
-If you assume that your system is able to infer, from the input it receives, how to generate outputs, it might be covered by the AI Act, but if your system is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side, as you do not miss anything. 
+If you assume that your system is able to influence physical or virtual environments, it might be covered by the AI Act, but if your system is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side, as you do not miss anything.
 
-If you wrongly assume that your system does not infer, from the input it receives, how to generate outputs, and the system is subject to the AI Act, you could unknowingly break the law, which could lead to fines or other penalties.
+If you wrongly assume that your system is not able to influence physical or virtual environments, you could unknowingly break the law, which could lead to fines or other penalties.
 
-**When in doubt, assume your system is able to infer, from the input it receives, how to generate outputs.**  
+**When in doubt, assume your system is able to influence physical or virtual environments.**  
 Better safe than sorry.

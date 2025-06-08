@@ -6,6 +6,7 @@ use App\Models\QuestionnaireAction;
 use Livewire\Component;
 use App\Models\QuestionnaireSession;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Questionaire extends Component
 {
@@ -75,7 +76,7 @@ class Questionaire extends Component
     public function markdownFileContents($fileName)
     {
         if  (file_exists(resource_path("decisiontree/{$fileName}"))) {
-            return file_get_contents(resource_path("decisiontree/{$fileName}"));
+            return Str::markdown(file_get_contents(resource_path("decisiontree/{$fileName}")));
         }
         else{
             return $fileName;
