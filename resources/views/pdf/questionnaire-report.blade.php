@@ -24,7 +24,7 @@
         <h2>Answers</h2>
         @foreach ($session->actions as $action)
             <div class="step">
-                <p><span class="label">Node:</span> {{ $action->node_key }}</p>
+                <p><span class="label">Question:</span> {{ $action->node_key }}</p>
                 <p><span class="label">Selected:</span> {{ $action->selected_option }}</p>
                 @if($action->justification)
                     <p><span class="label">Justification:</span> {{ $action->justification }}</p>

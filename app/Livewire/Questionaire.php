@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\QuestionnaireSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use PDO;
 
 class Questionaire extends Component
 {
@@ -69,10 +70,6 @@ class Questionaire extends Component
         $this->proceedWithFlow = true;
         $this->justification_text = null;
     }
-    public function downloadResults()
-    {
-        return $this->redirect("/questionnaire/{$this->session->id}/report", navigate: true);
-    }
     public function markdownFileContents($fileName)
     {
         if  (file_exists(resource_path("decisiontree/{$fileName}"))) {
@@ -85,18 +82,14 @@ class Questionaire extends Component
 
     public function goBack()
     {
-        // Pop current node (we're stepping back from this one)
-        $lastNodeKey = array_pop($this->nodeHistory);
+        array_pop($this->nodeHistory);
 
-        // If the history is now empty, reset to the entry node
         if (empty($this->nodeHistory)) {
             $this->currentNodeKey = json_decode($this->fileContents, true)['entry'] ?? '0';
         } else {
-            // Otherwise, get the previous node
             $this->currentNodeKey = end($this->nodeHistory);
         }
 
-        // Load the current node data
         $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
 
         // Update explanation text
@@ -104,13 +97,6 @@ class Questionaire extends Component
             $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
         } else {
             $this->explanationText = 'Missing explanation';
-        }
-
-        // Remove the QuestionnaireAction for the node we just "backed out" of
-        if ($lastNodeKey) {
-            QuestionnaireAction::where('questionnaire_session_id', $this->session->id)
-                ->where('node_key', $lastNodeKey)
-                ->delete();
         }
 
         // Reset state flags
