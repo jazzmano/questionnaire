@@ -17,8 +17,8 @@
 
         "0": {
             "type": "decision",
-            "explanation": "AI_system_explanation",
             "question": "Is your system an AI system according to Article 3(1) of the AI Act?",
+            "explanation": "AI_system_explanation.md",
             "options": [
                 {
                     "label": "Yes.",
@@ -47,6 +47,7 @@
         "unsure_followup": {
             "type": "decision",
             "question": "What parts are you unsure about (you can select more)?",
+            "explanation": "unsure_AI_system_explanation.md",
             "multi_select": true,
             "options": [
                 {
