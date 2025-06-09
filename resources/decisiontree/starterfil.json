@@ -120,6 +120,7 @@
 
             "1_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure whether your system is machine-based, this is what we recommend.",
                 "explanation": "unsure_machine_based_explanation.md",
                 "options": [
                     {
@@ -163,6 +164,7 @@
 
             "2_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure whether your system operates with a level of autonomy, this is what we recommend.",
                 "explanation": "unsure_autonomy.md",
                 "options": [
                     {
@@ -206,8 +208,8 @@
 
             "3_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure of whether your system exhibits adaptiveness after deployment, this is what we recommend.",
                 "explanation": "unsure_adaptiveness.md",
-                "question": "If you are unsure of whether your system exhibits adaptiveness after deployment, we recommend one of two approaches:",
                 "options": [
                     { 
                         "label": "I assume the system exhibits adaptiveness after deployment (recommended).",
@@ -224,7 +226,7 @@
 
         "4": {
             "type": "decision",
-            "questions": "Is your system designed to operate according to one or more implicit or explicit objectives?",
+            "question": "Is your system designed to operate according to one or more implicit or explicit objectives?",
             "explanation": "objectives_explanation.md",
             "options": [
                 {
@@ -248,8 +250,8 @@
 
             "4_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure whether your system is designed to operate according to one or more implicit or explicit objectives, this is what we recommend.",
                 "explanation": "unsure_objectives.md",
-                "question": "If you are unsure of whether your system is designed to operate according to one or more implicit or explicit objectives, we recommend one of two approaches:",
                 "options": [
                     { 
                         "label": "I assume the system is designed to operate according to one or more implicit or explicit objectives (recommended).",
@@ -266,7 +268,7 @@
 
         "5": {
             "type": "decision",
-            "questions": "Does your IT system infer, from the input it receives, how to generate outputs?",
+            "question": "Does your IT system infer, from the input it receives, how to generate outputs?",
             "explanation": "infer_explanation.md",
             "options": [
                 {
@@ -290,8 +292,8 @@
 
             "5_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure of whether your IT system infers, from the input it receives, how to generate outputs, this is what we recommend.",
                 "explanation": "unsure_inference.md",
-                "question": "If you are unsure of whether your IT system infers, from the input it receives, how to generate outputs, we recommend one of two approaches:",
                 "options": [
                     { 
                         "label": "I assume the system infers, from the input it receives, how to generate outputs (recommended).",
@@ -308,7 +310,7 @@
 
         "6": {
             "type": "decision",
-            "questions": "Can your IT system generate outputs such as predictions, content, recommendations, or decisions?",
+            "question": "Can your IT system generate outputs such as predictions, content, recommendations, or decisions?",
             "explanation": "output_explanation.md",
             "options": [
                 {
@@ -332,8 +334,8 @@
 
             "6_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure of whether your IT system is able to generate outputs such as predictions, content, recommendations, or decisions, this is what we recommend.",
                 "explanation": "unsure_outputs.md",
-                "question": "If you are unsure of whether your IT system is able to generate outputs such as predictions, content, recommendations, or decisions, we recommend one of two approaches:",
                 "options": [
                     { 
                         "label": "I assume the system is able to generate outputs such as predictions, content, recommendations, or decisions (recommended).",
@@ -350,7 +352,7 @@
 
         "7": {
             "type": "decision",
-            "questions": "Is your IT system able to influence physical or virtual environments?",
+            "question": "Is your IT system able to influence physical or virtual environments?",
             "explanation": "influence_explanation.md",
             "options": [
                 {
@@ -374,7 +376,8 @@
 
             "7_unsure_followup": {
                 "type": "decision",
-                "question": "If you are unsure of whether your IT system is able to influence physical or virtual environments, we recommend one of two approaches:",
+                "question": "If you are unsure of whether your IT system is able to influence physical or virtual environments, this is what we recommend.",
+                "explanation": "unsure_environments.md",
                 "options": [
                     { 
                         "label": "I assume the IT system is able to influence physical or virtual environments (recommended).",

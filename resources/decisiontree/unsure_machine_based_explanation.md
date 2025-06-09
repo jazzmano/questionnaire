@@ -1,23 +1,21 @@
-If you are unsure whether your system infer, from the input it receives, how to generate outputs, you have two choices:
+If you are unsure whether your system is machine-based, you have two choices:
 
-1. **Assume it does infer how to generate outputs (recommended).**
+1. **Option 1: Assume it *is* machine-based.**
 
-2. \**Assume it does *not\* infer how to generate outputs.
+2. **Option 2: Assume it is *not* machine-based**
 
-We recommend you assume it _does_.
+We recommend you assume it *is* (option 1).
 
 **Why?**  
-AI systems must be able to figure out how to turn inputs into outputs. 'Inference' can be thought of as the AI systems ability to think. This inference capability can be present both when the AI system is being _developed_ and when it is being _used_.
+*Why choose option 1?*
+If you assume that your system is machine-based, you stay on the safe side. It might be covered by the AI Act (if the other legal criteria for an AI system are met), but if it is not prohibited or high-risk, the rules you must follow are usually simple. This assumption helps ensure you do not overlook legal obligations.
 
-During the **development phase**, an AI system can figure out algorithms or models from the data it is trained on. Think of it as the AI system getting a recipe of how the world works based on the training data it sees.
+Additionally, if you treat your system as machine-based, it reminds you that other EU laws may also apply, e.g., the EU Machinery Regulation. These rules are sometimes missed if you do not think of your system as a machine. Choosing option 1 helps you identify and comply with these other legal requirements.
 
-During the use phase, an AI system must be able to figure out what to do with the inputs it receives. If you use an AI-system like ChatGPT, your prompt is your input, and ChatGPT must then figure out what to do with it. _That_ is inference.
+By taking this approach, you also strengthen your ability to market the system as fully compliant across all relevant EU product regulations, which can support customer trust and accelerate sales, especially in regulated industries.
 
-**Consideration - for and against**
-If you assume that your system is able to infer, from the input it receives, how to generate outputs, it might be covered by the AI Act, but if your system is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side, as you do not miss anything.
+*Why choose option 2?*
+If you assume that your system is not machine-based, you are taking a risk, unless you are absolutely certain. Many systems today do qualify as machine-based. If your assessment is wrong and your system is in fact covered by the AI Act, you could unknowingly infringe on the AI Act, which may result in sanctions (such as fines).
 
-If you wrongly assume that your system does not infer, from the input it receives, how to generate outputs, and the system is subject to the AI Act, you could unknowingly break the law, which could lead to fines or other penalties.
 
-**When in doubt, assume your system is able to infer, from the input it receives, how to generate outputs.**  
-Better safe than sorry.
-
+**When in doubt, assume your system is machine-based.** Better safe than sorry.
