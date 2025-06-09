@@ -46,8 +46,8 @@
 
         "unsure_followup": {
             "type": "decision",
-            "explanation": "unsure_AI_system_explanation.md",
             "question": "What parts are you unsure about (you can select more)?",
+            "explanation": "unsure_AI_system_explanation.md",
             "multi_select": true,
             "options": [
                 {
