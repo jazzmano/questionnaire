@@ -1,3 +1,5 @@
+**Whether your an AI Act beginner or a veteran - we got you!**
+
 It is perfectly normal to feel unsure about whether something qualifies as an AI system.
 
 You may not yet know what you do not know. If that is the case, simply select the first option below to get started. That will take you through the whole decision tree.
