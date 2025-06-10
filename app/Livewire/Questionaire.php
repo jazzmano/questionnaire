@@ -34,6 +34,7 @@ class Questionaire extends Component
         $this->currentNode = $this->data[$this->currentNodeKey];
         $this->session = QuestionnaireSession::create(['user_id' => Auth::user()->id, 'final_node_key' => null, 'started_at' => now()]);
         $this->explanationText = $this->currentNode['explanation'] ?? '';
+        $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
     }
 
     public function selectOption($nextNodeKey, $actions = null, $answer = null)
