@@ -392,6 +392,12 @@
                     }
                 ]
             },
+            "not_subject_to_the_AI_Act": {
+                "type": "decision",
+                "message": "This system is not subject to the AI Act.",
+                "actions": [ "log_and_time", "require_justification" ],
+                "next": "end_flow"
+            },
 
             "your_system_is_an_AI_system": {
                 "type": "end",
@@ -413,12 +419,6 @@
         }
     },
 
-    "not_subject_to_the_AI_Act": {
-        "type": "decision",
-        "message": "This system is not subject to the AI Act.",
-        "actions": [ "log_and_time", "require_justification" ],
-        "next": "end_flow"
-    },
 
     "end_flow": {
     "type": "end",
