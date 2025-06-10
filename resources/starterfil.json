@@ -1,13 +1,27 @@
 {
     "entry": "0",
     "nodes": {
+        "identification": {
+            "type": "decision",
+            "questions": [
+                {
+                    "name": "Please type in your name.",
+                    "email": "Please provide your e-mail address.",
+                    "company": "Please provide the name of the company you represent.",
+                    "system_name": "Please provide the name of the exact system (including, if applicable, the system version), you are assessing."
+                }
+            ],
+            "explanation": "decision_flow_explanation",
+            "action": "log_and_time"
+        },
+
         "0": {
             "type": "decision",
-            "explanation": "To decide if what you are dealing with is an AI-system, your system must check of seven boxes.",
             "question": "Is your system an AI system according to Article 3(1) of the AI Act?",
+            "explanation": "AI_system_explanation.md",
             "options": [
                 {
-                    "label": "Yes",
+                    "label": "Yes.",
                     "actions": [
                         { "type": "log_and_time" },
                         { "type": "require_justification", "prompt": "Please, justify your decision" }
@@ -15,7 +29,7 @@
                     "next": "your_system_is_an_AI_system"
                 },
                 {
-                    "label": "No",
+                    "label": "No.",
                     "actions": [
                         { "type": "log_and_time" },
                         { "type": "require_justification", "prompt": "Please, justify your decision" }
@@ -23,12 +37,8 @@
                     "next": "not_subject_to_the_AI_Act"
                 },
                 {
-                    "label": "Don't know",
-                    "message": "I'm unsure.",
-                    "actions": [
-                        { "type": "log_and_time" },
-                        { "type": "require_justification", "prompt": "Please, justify your decision" }
-                    ],
+                    "label": "Don't know.",
+                    "action": "log_and_time",
                     "next": "unsure_followup"
                 }
             ]
@@ -37,62 +47,47 @@
         "unsure_followup": {
             "type": "decision",
             "question": "What parts are you unsure about (you can select more)?",
+            "explanation": "unsure_AI_system_explanation.md",
             "multi_select": true,
             "options": [
                 {
                     "label": "I don't know what I don't know – take me through everything.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "1"
                 },
                 {
                     "label": "I don't know if I fulfill the 'machine-based system' criteria.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "1"
                 },
                 {
                     "label": "I don't know if my system has the necessary level of autonomy.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "2"
                 },
                 {
                     "label": "I don't know whether my system can adapt/learn after use.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "3"
                 },
                 {
                     "label": "I don't know if the AI system is designed to operate according to one or more objectives.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "4"
                 },
                 {
                     "label": "I don't know if the system has inference capability.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "5"
                 },
                 {
                     "label": "I don't know if the system can generate outputs.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "6"
                 },
                 {
                     "label": "I don't know if the system can influence physical or virtual environments.",
-                    "actions": [
-                        { "type": "log_and_time" }
-                    ],
+                    "actions": ["log_and_time"],
                     "next": "7"
                 }
             ]
@@ -101,7 +96,6 @@
         "1": {
             "type": "decision",
             "question": "Is your IT system a machine-based system?",
-
             "explanation": "machine_based_system_explanation.md",
             "options": [
                 {
@@ -127,6 +121,7 @@
 
             "1_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure whether your system is machine-based, this is what we recommend.",
                 "explanation": "unsure_machine_based_explanation.md",
                 "options": [
                     {
@@ -137,7 +132,7 @@
                     {
                         "label": "I assume the system is not machine-based.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_Act"
+                        "next": "not_subject_to_the_AI_act"
                     }
                 ]
             },
@@ -170,7 +165,7 @@
 
             "2_unsure_followup": {
                 "type": "decision",
-                "question": "Question is missing",
+                "question": "If you are unsure whether your system operates with a level of autonomy, this is what we recommend.",
                 "explanation": "unsure_autonomy.md",
                 "options": [
                     {
@@ -181,7 +176,7 @@
                     {
                         "label": "I assume the system is not designed to operate with varying levels of autonomy.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_Act"
+                        "next": "not_subject_to_the_AI_act"
                     }
                 ]
             },
@@ -214,8 +209,8 @@
 
             "3_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure of whether your system exhibits adaptiveness after deployment, this is what we recommend.",
                 "explanation": "unsure_adaptiveness.md",
-                "question": "If you are unsure of whether your system exhibits adaptiveness after deployment, we recommend one of two approaches:",
                 "options": [
                     {
                         "label": "I assume the system exhibits adaptiveness after deployment (recommended).",
@@ -256,8 +251,8 @@
 
             "4_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure whether your system is designed to operate according to one or more implicit or explicit objectives, this is what we recommend.",
                 "explanation": "unsure_objectives.md",
-                "question": "If you are unsure of whether your system is designed to operate according to one or more implicit or explicit objectives, we recommend one of two approaches:",
                 "options": [
                     {
                         "label": "I assume the system is designed to operate according to one or more implicit or explicit objectives (recommended).",
@@ -267,7 +262,7 @@
                     {
                         "label": "I assume the system is not designed to operate according to one or more implicit or explicit objectives.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_Act"
+                        "next": "not_subject_to_AI_act"
                     }
                 ]
             },
@@ -298,8 +293,8 @@
 
             "5_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure of whether your IT system infers, from the input it receives, how to generate outputs, this is what we recommend.",
                 "explanation": "unsure_inference.md",
-                "question": "If you are unsure of whether your IT system infers, from the input it receives, how to generate outputs, we recommend one of two approaches:",
                 "options": [
                     {
                         "label": "I assume the system infers, from the input it receives, how to generate outputs (recommended).",
@@ -309,7 +304,7 @@
                     {
                         "label": "I assume the system does not infers, from the input it receives, how to generate outputs ",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_Act"
+                        "next": "not_subject_to_AI_act"
                     }
                 ]
             },
@@ -340,8 +335,8 @@
 
             "6_unsure_followup": {
                 "type": "decision",
+                "question": "If you are unsure of whether your IT system is able to generate outputs such as predictions, content, recommendations, or decisions, this is what we recommend.",
                 "explanation": "unsure_outputs.md",
-                "question": "If you are unsure of whether your IT system is able to generate outputs such as predictions, content, recommendations, or decisions, we recommend one of two approaches:",
                 "options": [
                     {
                         "label": "I assume the system is able to generate outputs such as predictions, content, recommendations, or decisions (recommended).",
@@ -351,7 +346,7 @@
                     {
                         "label": "I assume the system is not able to generate outputs such as predictions, content, recommendations, or decisions.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_Act"
+                        "next": "not_subject_to_AI_act"
                     }
                 ]
             },
@@ -365,7 +360,7 @@
                     "label": "Yes",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "your_system_is_an_AI_system"
+                    "next": "Your_system_is_an_AI_system"
                 },
                 {
                     "label": "No",
@@ -382,17 +377,18 @@
 
             "7_unsure_followup": {
                 "type": "decision",
-                "question": "If you are unsure of whether your IT system is able to influence physical or virtual environments, we recommend one of two approaches:",
+                "question": "If you are unsure of whether your IT system is able to influence physical or virtual environments, this is what we recommend.",
+                "explanation": "unsure_environments.md",
                 "options": [
                     {
                         "label": "I assume the IT system is able to influence physical or virtual environments (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "your_system_is_an_AI_system"
+                        "next": "Your_system_is_an_AI_system"
                     },
                     {
                         "label": "I assume the IT system is not able to influence physical or virtual environments",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_Act"
+                        "next": "not_subject_to_AI_act"
                     }
                 ]
             },
@@ -400,14 +396,7 @@
             "your_system_is_an_AI_system": {
                 "type": "end",
                 "message": "✅ Your system qualifies as an AI system under Article 3(1) of the AI Act.",
-                "actions": [ "log_and_time", "generate_report" ],
-                "next": "end_flow"
-            },
-            "not_subject_to_the_AI_Act": {
-                "type": "decision",
-                "message": "This system is not subject to the AI Act.",
-                "actions": [ "log_and_time", "require_justification" ],
-                "next": "end_flow"
+                "actions": [ "log_and_time", "generate_report" ]
             }
         },
 
@@ -423,6 +412,14 @@
             "fields": "ALL"
         }
     },
+
+    "not_subject_to_the_AI_Act": {
+        "type": "decision",
+        "message": "This system is not subject to the AI Act.",
+        "actions": [ "log_and_time", "require_justification" ],
+        "next": "end_flow"
+    },
+
     "end_flow": {
     "type": "end",
     "message": "Thank you for completing the assessment.",
