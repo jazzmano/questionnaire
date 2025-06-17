@@ -4,9 +4,11 @@
         <div class="flex flex-col items-center gap-4 mb-4">
         <flux:heading size="xl">{{ $currentNode['question'] ?? $currentNode['message'] ?? 'No content available' }}</flux:heading>
 
+        <div class="max-w-2xl text-center">
         @if(isset($explanationText))
             <flux:text>{!! $explanationText !!}</flux:text>
         @endif
+        </div>
         </div>
     <div class="space-y-2 flex gap-2 flex-col">
         @foreach($currentNode['options'] ?? [] as $option)
@@ -27,18 +29,20 @@
         <p>No node found.</p>
         @endif
     @endif
-    @if($requiresJustification)
-    <div class="flex flex-col items-center gap-4 w-1/2">
-    <flux:textarea
-        wire:model="justification_text"
-        placeholder="Please provide your justification here..."
-        resize="both">
-    </flux:textarea>
+    <div class="flex flex-col items-center gap-4 w-1/2 mt-6">
+        <flux:textarea
+            wire:model="justification_text"
+            placeholder="Please provide your justification here..."
+            resize="both">
+        </flux:textarea>
 
-    <flux:button wire:click="submitJustification">Continue</flux:button>
+        {{-- Show validation error --}}
+        <div class="text-red-600 text-sm">
+            @error('justification_text') {{ $message }} @enderror
+        </div>
 
+        <flux:button wire:click="submitJustification">Submit Justification</flux:button>
     </div>
-    @endif
     @if($completedFlow)
         <div class="flex flex-col mt-4 gap-4 items-center">
             <a href="/questionnaire/{{ $session->id }}/report" target="_blank">

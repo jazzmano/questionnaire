@@ -65,12 +65,17 @@ class Questionaire extends Component
 
     public function submitJustification()
     {
-        $this->finalizeStep($this->justification_text);
+        $validated = $this->validate([
+            'justification_text' => 'required|min:3',
+        ]);
+
+        $this->finalizeStep($validated['justification_text']);
 
         $this->requiresJustification = false;
         $this->proceedWithFlow = true;
         $this->justification_text = null;
     }
+
     public function markdownFileContents($fileName)
     {
         if  (file_exists(resource_path("decisiontree/{$fileName}"))) {
