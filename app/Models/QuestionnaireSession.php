@@ -3,11 +3,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\QuestionnaireAction;
+use App\Models\IdentificationDetails;
 
 class QuestionnaireSession extends Model
 {
     protected $fillable = [
-        'user_id', 'final_node_key', 'started_at', 'completed_at',
+        'uuid', 'final_node_key', 'started_at', 'completed_at',
     ];
 
     public function actions(): HasMany
@@ -17,5 +20,9 @@ class QuestionnaireSession extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function identificationDetail(): HasOne
+    {
+        return $this->hasOne(IdentificationDetails::class);
     }
 }

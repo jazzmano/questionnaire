@@ -8,14 +8,13 @@ use App\Models\QuestionnaireSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PDO;
+use App\Models\IdentificationDetails;
 
 class Questionaire extends Component
 {
     public $data;
     public $currentNodeKey;
     public $currentNode;
-    public $requiresJustification = false;
-    public $proceedWithFlow = true;
     public $justification_text;
     public QuestionnaireSession $session;
     public $pendingNodeKey;
@@ -25,123 +24,331 @@ class Questionaire extends Component
     public $fileContents;
     public $explanationText;
     public $nodeHistory = [];
+    public $identificationQuestions = [];
+    public $multiSelectedAnswers = []; // for multi-select tracking
+    public $requiresJustification = false; // flag to indicate if justification is required
+    public $userDetails = [
+        'name' => '',
+        'email' => '',
+        'company' => '',
+        'system_name' => ''
+    ];
+    public $pendingNodeQueue = []; // queue of node keys to visit
+    public $multiSelect = false;
+    public $selectedAnswer; // for single select tracking
+    public $isMultiSelectNode = false; // flag to determine if current node supports multi-select
+    public $showOptions = true; // flag to show/hide answer options
 
     public function mount()
     {
         $this->fileContents = file_get_contents(resource_path('starterfil.json'));
-        $this->data = json_decode($this->fileContents, true)['nodes'];
-        $this->currentNodeKey = json_decode($this->fileContents, true)['entry'] ?? '0';
-        $this->currentNode = $this->data[$this->currentNodeKey];
-        $this->session = QuestionnaireSession::create(['user_id' => Auth::user()->id, 'final_node_key' => null, 'started_at' => now()]);
-        $this->explanationText = $this->currentNode['explanation'] ?? '';
-        $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
-    }
+        $jsonData = json_decode($this->fileContents, true);
 
-    public function selectOption($nextNodeKey, $actions = null, $answer = null)
-    {
-        if ($nextNodeKey === 'your_system_is_an_AI_system' || $nextNodeKey === 'not_subject_to_the_AI_Act') {
-            $this->session->final_node_key = $nextNodeKey;
-            $this->session->completed_at = now();
-            $this->session->save();
-            $this->requiresJustification = false;
-        }
-        $this->pendingNodeKey = $nextNodeKey;
-        $this->pendingAnswer = $answer;
-        $this->pendingActions = $actions;
-
-        foreach ($actions ?? [] as $action) {
-            $type = is_array($action) && isset($action['type']) ? $action['type'] : $action;
-
-            if ($type === 'log_and_time' || $type === 'require_justification') {
-                $this->proceedWithFlow = false;
-                $this->requiresJustification = true;
-                return; // Wait for justification input before proceeding
-            }
+        if (!$jsonData || !isset($jsonData['nodes'])) {
+            throw new \Exception('Invalid JSON structure in starterfil.json');
         }
 
+        $this->data = $jsonData['nodes'];
+        $this->currentNodeKey = $jsonData['entry'] ?? '0'; // Start with first question, not identification
+        $this->identificationQuestions = $this->data['identification']['questions'][0] ?? [];
+        $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
 
-        $this->finalizeStep(null);
-    }
+        if (!$this->currentNode) {
+            throw new \Exception('Starting node not found: ' . $this->currentNodeKey);
+        }
 
-    public function submitJustification()
-    {
-        $validated = $this->validate([
-            'justification_text' => 'required|min:3',
+        $this->session = QuestionnaireSession::create([
+            'uuid' => Str::uuid(),
+            'final_node_key' => null,
+            'started_at' => now()
         ]);
 
-        $this->finalizeStep($validated['justification_text']);
+        $this->setNodeProperties();
+    }
 
-        $this->requiresJustification = false;
-        $this->proceedWithFlow = true;
+    public function selectOption($optionIndex = null)
+    {
+        // Validate justification if required
+        if ($this->requiresJustification) {
+            $this->validate([
+                'justification_text' => 'required|min:10'
+            ], [
+                'justification_text.required' => 'Please provide a justification for your answer.',
+                'justification_text.min' => 'Justification must be at least 10 characters long.'
+            ]);
+        }
+
+        if ($this->currentNodeKey === 'identification') {
+            $this->handleIdentificationSubmission();
+            return;
+        }
+
+        if ($this->isMultiSelectNode) {
+            $this->handleMultiSelectSubmission();
+        } else {
+            if ($optionIndex === null && $this->selectedAnswer !== null) {
+                $optionIndex = $this->selectedAnswer;
+            }
+            $this->handleSingleSelectSubmission($optionIndex);
+        }
+    }
+
+    // Removed old finalizeStep method - replaced with new flow methods above
+    public function goBack()
+    {
+        if (empty($this->nodeHistory)) {
+            return; // Cannot go back further
+        }
+
+        // Remove current node from history and go to previous
+        $previousNodeKey = array_pop($this->nodeHistory);
+
+        $this->currentNodeKey = $previousNodeKey;
+        $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
+
+        if (!$this->currentNode) {
+            throw new \Exception('Previous node not found: ' . $previousNodeKey);
+        }
+
+        // Reset form state
+        $this->selectedAnswer = null;
+        $this->multiSelectedAnswers = [];
         $this->justification_text = null;
+        $this->completedFlow = false;
+
+        // Set node properties
+        $this->setNodeProperties();
     }
 
     public function markdownFileContents($fileName)
     {
-        if  (file_exists(resource_path("decisiontree/{$fileName}"))) {
-            return Str::markdown(file_get_contents(resource_path("decisiontree/{$fileName}")));
+        if (empty($fileName)) {
+            return '';
         }
-        else{
-            return $fileName;
+
+        $filePath = resource_path("decisiontree/{$fileName}");
+
+        if (file_exists($filePath) && is_file($filePath)) {
+            return Str::markdown(file_get_contents($filePath));
+        }
+
+        // Return empty string if file doesn't exist or is not a valid file
+        return '';
+    }
+
+    protected function setNodeProperties()
+    {
+        $this->isMultiSelectNode = $this->currentNodeKey === 'unsure_followup';
+        $this->explanationText = $this->markdownFileContents($this->currentNode['explanation'] ?? '');
+        $this->requiresJustification = $this->checkIfJustificationRequired();
+    }
+
+    protected function checkIfJustificationRequired()
+    {
+        if (!isset($this->currentNode['options'])) return false;
+
+        foreach ($this->currentNode['options'] as $option) {
+            $actions = $option['actions'] ?? [];
+            if (in_array('require_justification', $actions) ||
+                (is_array($actions) && in_array(['type' => 'require_justification'], $actions))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected function handleIdentificationSubmission()
+    {
+        // Validate identification details
+        $this->validate([
+            'userDetails.name' => 'required|min:2',
+            'userDetails.email' => 'required|email',
+            'userDetails.company' => 'required|min:2',
+            'userDetails.system_name' => 'required|min:2'
+        ], [
+            'userDetails.name.required' => 'Name is required.',
+            'userDetails.email.required' => 'Email is required.',
+            'userDetails.email.email' => 'Please enter a valid email address.',
+            'userDetails.company.required' => 'Company name is required.',
+            'userDetails.system_name.required' => 'System name is required.'
+        ]);
+
+        IdentificationDetails::create([
+            'questionnaire_session_id' => $this->session->id,
+            'name' => $this->userDetails['name'],
+            'email' => $this->userDetails['email'],
+            'company' => $this->userDetails['company'],
+            'system_name' => $this->userDetails['system_name'],
+        ]);
+
+        // If there's a stored final node key, proceed to completion
+        if ($this->session->final_node_key) {
+            $this->handleFlowCompletion($this->session->final_node_key);
+        } else {
+            // Otherwise, start the questionnaire (legacy flow)
+            $nextNodeKey = $this->currentNode['options'][0]['next'] ?? '0';
+            $this->moveToNode($nextNodeKey, 'Identification completed');
         }
     }
 
-    public function goBack()
+    protected function handleMultiSelectSubmission()
     {
-        array_pop($this->nodeHistory);
-
-        if (empty($this->nodeHistory)) {
-            $this->currentNodeKey = json_decode($this->fileContents, true)['entry'] ?? '0';
-        } else {
-            $this->currentNodeKey = end($this->nodeHistory);
+        if (empty($this->multiSelectedAnswers)) {
+            return;
         }
 
-        $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
-
-        // Update explanation text
-        if (isset($this->currentNode['explanation'])) {
-            $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
-        } else {
-            $this->explanationText = 'Missing explanation';
+        // Special handling for unsure_followup
+        if ($this->currentNodeKey === 'unsure_followup') {
+            $this->handleUnsureFollowupSelection();
         }
-
-        // Reset state flags
-        $this->requiresJustification = false;
-        $this->proceedWithFlow = true;
-        $this->completedFlow = false;
     }
 
-    protected function finalizeStep($justification = null)
+    protected function handleUnsureFollowupSelection()
     {
-        \App\Models\QuestionnaireAction::create([
+        $selectedValues = [];
+
+        foreach ($this->multiSelectedAnswers as $selectedIndex) {
+            $option = $this->currentNode['options'][$selectedIndex] ?? null;
+            if (!$option) continue;
+
+            // Handle "I don't know what I don't know" option
+            if (isset($option['all_values'])) {
+                $selectedValues = array_merge($selectedValues, $option['all_values']);
+            } elseif (isset($option['value'])) {
+                $selectedValues[] = $option['value'];
+            }
+        }
+
+        // Remove duplicates and sort
+        $selectedValues = array_unique($selectedValues);
+        sort($selectedValues);
+
+        // Add selected node keys to the queue
+        $this->pendingNodeQueue = $selectedValues;
+
+        // Log the multi-select action
+        QuestionnaireAction::create([
             'questionnaire_session_id' => $this->session->id,
             'node_key' => $this->currentNodeKey,
-            'selected_option' => $this->pendingAnswer,
-            'justification' => $justification,
+            'selected_option' => implode(',', $this->multiSelectedAnswers),
+            'justification' => $this->justification_text,
         ]);
-        if (isset($this->data[$this->pendingNodeKey])) {
-            $this->currentNodeKey = $this->pendingNodeKey;
-            $this->currentNode = $this->data[$this->pendingNodeKey];
-            $this->nodeHistory[] = $this->currentNodeKey;
 
-            if(isset($this->currentNode['explanation'])){
-                $this->explanationText = $this->markdownFileContents($this->currentNode['explanation']);
-            } else {
-                $this->explanationText = 'Missing explanation';
-            }
-
-            if (($this->currentNode['next'] ?? null) === 'end_flow') {
-                $this->completedFlow = true;
-                $this->explanationText = '';
-            }
-        }
-
-        // Reset pending state
-        $this->pendingNodeKey = null;
-        $this->pendingAnswer = null;
-        $this->pendingActions = null;
+        // Move to first node in queue or default
+        $this->processQueue();
     }
 
+    protected function handleSingleSelectSubmission($optionIndex)
+    {
+        if ($optionIndex === null || !isset($this->currentNode['options'][$optionIndex])) {
+            return;
+        }
+
+        $option = $this->currentNode['options'][$optionIndex];
+        $nextNodeKey = $option['next'] ?? null;
+
+        // Log the action
+        QuestionnaireAction::create([
+            'questionnaire_session_id' => $this->session->id,
+            'node_key' => $this->currentNodeKey,
+            'selected_option' => $option['label'] ?? '',
+            'justification' => $this->justification_text,
+        ]);
+
+        // Handle routing based on node configuration
+        if (isset($option['next_node_from_selected_values']) && $option['next_node_from_selected_values']) {
+            $this->processQueue();
+        } elseif ($nextNodeKey) {
+            $this->moveToNode($nextNodeKey, $option['label'] ?? '');
+        }
+    }
+
+    protected function processQueue()
+    {
+        if (empty($this->pendingNodeQueue)) {
+            // No more nodes in queue, determine default next node
+            $routing = $this->currentNode['routing'] ?? null;
+            $defaultNext = $routing['next_node_when_selected_values_empty'] ?? 'your_system_is_an_AI_system';
+            $this->moveToNode($defaultNext, 'Queue completed');
+            return;
+        }
+
+        // Get next node from queue
+        $nextNodeKey = array_shift($this->pendingNodeQueue);
+        $this->moveToNode($nextNodeKey, 'From queue');
+    }
+
+    protected function moveToNode($nodeKey, $answer = '')
+    {
+        if ($nodeKey === 'end_flow' || in_array($nodeKey, ['your_system_is_an_AI_system', 'not_subject_to_the_AI_Act'])) {
+            // Before completing flow, redirect to identification if not filled yet
+            if (empty($this->userDetails['name']) || empty($this->userDetails['email']) ||
+                empty($this->userDetails['company']) || empty($this->userDetails['system_name'])) {
+                $this->moveToIdentification($nodeKey);
+                return;
+            }
+            $this->handleFlowCompletion($nodeKey);
+            return;
+        }
+
+        if (!isset($this->data[$nodeKey])) {
+            throw new \Exception('Node not found: ' . $nodeKey);
+        }
+
+        // Update history
+        $this->nodeHistory[] = $this->currentNodeKey;
+
+        // Move to new node
+        $this->currentNodeKey = $nodeKey;
+        $this->currentNode = $this->data[$nodeKey];
+
+        // Reset form state
+        $this->selectedAnswer = null;
+        $this->multiSelectedAnswers = [];
+        $this->justification_text = null;
+
+        // Set node properties
+        $this->setNodeProperties();
+    }
+
+    protected function moveToIdentification($finalNodeKey)
+    {
+        // Store the final node key to proceed to after identification
+        $this->session->final_node_key = $finalNodeKey;
+        $this->session->save();
+
+        // Update history
+        $this->nodeHistory[] = $this->currentNodeKey;
+
+        // Move to identification
+        $this->currentNodeKey = 'identification';
+        $this->currentNode = $this->data['identification'];
+
+        // Reset form state
+        $this->selectedAnswer = null;
+        $this->multiSelectedAnswers = [];
+        $this->justification_text = null;
+
+        // Set node properties
+        $this->setNodeProperties();
+    }
+
+    protected function handleFlowCompletion($finalNodeKey)
+    {
+        $this->session->final_node_key = $finalNodeKey;
+        $this->session->completed_at = now();
+        $this->session->save();
+
+        $this->completedFlow = true;
+        $this->currentNode = $this->data[$finalNodeKey] ?? ['message' => 'Flow completed'];
+        $this->explanationText = ''; // Clear explanation text on completion
+        $this->requiresJustification = false; // Hide justification textarea
+        $this->selectedAnswer = null; // Clear any selected answers
+        $this->multiSelectedAnswers = []; // Clear multi-select answers
+        $this->justification_text = null; // Clear justification text
+        $this->showOptions = false; // Hide answer options when flow is complete
+        $this->currentNodeKey = $finalNodeKey; // Set the current node key to the final node
+    }
     public function render()
     {
         return view('livewire.questionaire');

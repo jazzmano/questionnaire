@@ -3,6 +3,7 @@
     "nodes": {
         "identification": {
             "type": "decision",
+            "message": "Please provide your identification details to complete the assessment.",
             "questions": [
                 {
                     "name": "Please type in your name.",
@@ -11,8 +12,13 @@
                     "system_name": "Please provide the name of the exact system (including, if applicable, the system version), you are assessing."
                 }
             ],
-            "explanation": "decision_flow_explanation",
-            "action": "log_and_time"
+            "explanation": "decision_flow_explanation.md",
+            "action": "log_and_time",
+            "options": [
+                {
+                    "next": "0"
+            }
+            ]
         },
 
         "0": {
@@ -48,49 +54,54 @@
             "type": "decision",
             "question": "What parts are you unsure about (you can select more)?",
             "explanation": "unsure_AI_system_explanation.md",
-            "multi_select": true,
             "options": [
                 {
                     "label": "I don't know what I don't know – take me through everything.",
                     "actions": ["log_and_time"],
-                    "next": "1"
+                    "all_values": ["1", "2", "3", "4", "5", "6", "7"]
                 },
                 {
                     "label": "I don't know if I fulfill the 'machine-based system' criteria.",
                     "actions": ["log_and_time"],
-                    "next": "1"
+                    "value": "1"
                 },
                 {
                     "label": "I don't know if my system has the necessary level of autonomy.",
                     "actions": ["log_and_time"],
-                    "next": "2"
+                    "value": "2"
                 },
                 {
                     "label": "I don't know whether my system can adapt/learn after use.",
                     "actions": ["log_and_time"],
-                    "next": "3"
+                    "value": "3"
                 },
                 {
                     "label": "I don't know if the AI system is designed to operate according to one or more objectives.",
                     "actions": ["log_and_time"],
-                    "next": "4"
+                    "value": "4"
                 },
                 {
                     "label": "I don't know if the system has inference capability.",
                     "actions": ["log_and_time"],
-                    "next": "5"
+                    "value": "5"
                 },
                 {
                     "label": "I don't know if the system can generate outputs.",
                     "actions": ["log_and_time"],
-                    "next": "6"
+                    "value": "6"
                 },
                 {
                     "label": "I don't know if the system can influence physical or virtual environments.",
                     "actions": ["log_and_time"],
-                    "next": "7"
+                    "value": "7"
                 }
-            ]
+            ],
+
+            "routing": {
+                "action": "log_and_time",
+                "next_nodes_from_selected_values": true,
+                "next_node_when_selected_values_empty": "your_system_is_an_AI_system"
+            }
         },
 
         "1": {
@@ -102,13 +113,13 @@
                     "label": "Yes.",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "2"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "No.",
                     "message": "If your system is not machine-based, it is not an AI-system.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "not_subject_to_the_AI_Act"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "Unsure.",
@@ -127,7 +138,7 @@
                     {
                         "label": "I assume the system is machine-based (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "2"
+                        "next_node_from_selected_values": true
                     },
                     {
                         "label": "I assume the system is not machine-based.",
@@ -146,7 +157,7 @@
                     "label": "Yes.",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "3"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "No.",
@@ -171,7 +182,7 @@
                     {
                         "label": "I assume the system is designed to operate with varying levels of autonomy (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "2"
+                        "next_node_from_selected_values": true
                     },
                     {
                         "label": "I assume the system is not designed to operate with varying levels of autonomy.",
@@ -190,13 +201,13 @@
                     "label": "Yes.",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "4"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "No.",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "4"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "Unsure.",
@@ -215,12 +226,12 @@
                     {
                         "label": "I assume the system exhibits adaptiveness after deployment (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "4"
+                        "next_node_from_selected_values": true
                     },
                     {
                         "label": "I assume the system does not exhibit adaptiveness after deployment.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "4"
+                        "next_node_from_selected_values": true
                     }
                 ]
             },
@@ -234,7 +245,7 @@
                     "label": "Yes",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "5"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "No",
@@ -257,12 +268,12 @@
                     {
                         "label": "I assume the system is designed to operate according to one or more implicit or explicit objectives (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "5"
+                        "next_node_from_selected_values": true
                     },
                     {
                         "label": "I assume the system is not designed to operate according to one or more implicit or explicit objectives.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_AI_act"
+                        "next": "not_subject_to_the_AI_Act"
                     }
                 ]
             },
@@ -276,7 +287,7 @@
                     "label": "Yes",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "6"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "No",
@@ -299,12 +310,12 @@
                     {
                         "label": "I assume the system infers, from the input it receives, how to generate outputs (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "6"
+                        "next_node_from_selected_values": true
                     },
                     {
                         "label": "I assume the system does not infers, from the input it receives, how to generate outputs ",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_AI_act"
+                        "next": "not_subject_to_the_AI_Act"
                     }
                 ]
             },
@@ -318,7 +329,7 @@
                     "label": "Yes",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "7"
+                    "next_node_from_selected_values": true
                 },
                 {
                     "label": "No",
@@ -341,12 +352,12 @@
                     {
                         "label": "I assume the system is able to generate outputs such as predictions, content, recommendations, or decisions (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "7"
+                        "next_node_from_selected_values": true
                     },
                     {
                         "label": "I assume the system is not able to generate outputs such as predictions, content, recommendations, or decisions.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_AI_act"
+                        "next": "not_subject_to_the_AI_Act"
                     }
                 ]
             },
@@ -388,23 +399,29 @@
                     {
                         "label": "I assume the IT system is not able to influence physical or virtual environments",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_AI_act"
+                        "next": "not_subject_to_the_AI_Act"
                     }
                 ]
             },
-            "not_subject_to_the_AI_Act": {
-                "type": "decision",
-                "message": "This system is not subject to the AI Act.",
-                "actions": [ "log_and_time", "require_justification" ],
-                "next": "end_flow"
-            },
 
-            "your_system_is_an_AI_system": {
-                "type": "end",
-                "message": "✅ Your system qualifies as an AI system under Article 3(1) of the AI Act.",
-                "actions": [ "log_and_time", "generate_report" ]
-            }
+        "not_subject_to_the_AI_Act": {
+            "type": "end",
+            "message": "This system is not subject to the AI Act.",
+            "actions": [ "log_and_time", "generate_report" ]
         },
+
+        "your_system_is_an_AI_system": {
+            "type": "end",
+            "message": "✅ Your system qualifies as an AI system under Article 3(1) of the AI Act.",
+            "actions": [ "log_and_time", "generate_report" ]
+        },
+
+        "end_flow": {
+            "type": "end",
+            "message": "Thank you for completing the assessment.",
+            "actions": [ "log_and_time", "generate_report" ]
+        }
+    },
 
     "auditability": {
         "metadata": {
@@ -417,13 +434,5 @@
             "track": true,
             "fields": "ALL"
         }
-    },
-
-
-    "end_flow": {
-    "type": "end",
-    "message": "Thank you for completing the assessment.",
-    "actions": [ "log_and_time", "generate_report" ]
     }
 }
-
