@@ -87,7 +87,7 @@
     {{-- Flow Completed --}}
     @if($completedFlow)
         <div class="flex flex-col mt-8 gap-4 items-center">
-            <a href="/questionnaire/{{ $session->id }}/report" target="_blank">
+            <a href="/questionnaire/{{ $session->uuid }}/report" target="_blank">
                 <flux:button>Download Results</flux:button>
             </a>
         </div>

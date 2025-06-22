@@ -21,6 +21,6 @@ Route::get('questionnaire', Questionaire::class)
 //     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 // });
 
-Route::get('/questionnaire/{session}/report', [QuestionnaireReportController::class, 'download']);
+Route::get('/questionnaire/{uuid}/report', [QuestionnaireReportController::class, 'download']);
 
 require __DIR__.'/auth.php';
