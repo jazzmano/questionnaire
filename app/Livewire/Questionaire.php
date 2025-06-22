@@ -233,6 +233,7 @@ class Questionaire extends Component
         QuestionnaireAction::create([
             'questionnaire_session_id' => $this->session->id,
             'node_key' => $this->currentNodeKey,
+            'node_question' => $this->currentNode['question'] ?? $this->currentNode['message'] ?? 'Multi-select question',
             'selected_option' => implode(',', $this->multiSelectedAnswers),
             'justification' => $this->justification_text,
         ]);
@@ -254,6 +255,7 @@ class Questionaire extends Component
         QuestionnaireAction::create([
             'questionnaire_session_id' => $this->session->id,
             'node_key' => $this->currentNodeKey,
+            'node_question' => $this->currentNode['question'] ?? $this->currentNode['message'] ?? 'Question not available',
             'selected_option' => $option['label'] ?? '',
             'justification' => $this->justification_text,
         ]);

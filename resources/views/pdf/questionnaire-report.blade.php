@@ -256,7 +256,7 @@
         @foreach ($session->actions as $index => $action)
             <div class="answer-card">
                 <div class="question-text">
-                    Question {{ $index + 1 }}: {{ ucfirst(str_replace('_', ' ', $action->node_key)) }}
+                    Question {{ $index + 1 }}: {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
                 </div>
                 
                 <div class="answer-text">

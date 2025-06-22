@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class QuestionnaireAction extends Model
 {
     protected $fillable = [
-        'questionnaire_session_id', 'node_key', 'selected_option', 'justification',
+        'questionnaire_session_id', 'node_key', 'node_question', 'selected_option', 'justification',
     ];
 
     public function session(): BelongsTo
