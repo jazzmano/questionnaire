@@ -49,7 +49,7 @@
                     >Continue with Selected Options
                 </flux:button>
             @elseif($currentNodeKey !== 'identification' )
-                <flux:radio.group wire:model="selectedAnswer" label="Choose your answer">
+                <flux:radio.group wire:model="selectedAnswer">
                     @foreach($currentNode['options'] ?? [] as $index => $option)
                         <flux:radio value="{{ $index }}" label="{{ $option['label'] }}" />
                     @endforeach
@@ -97,7 +97,7 @@
     @if(!empty($nodeHistory))
         <div class="flex justify-between mt-6 gap-4">
             <flux:button variant="ghost" wire:click='goBack' icon='arrow-left'>
-                Previous question
+                Back
             </flux:button>
         </div>
     @endif

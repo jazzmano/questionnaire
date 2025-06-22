@@ -1,6 +1,13 @@
 {
-    "entry": "0",
+    "entry": "introduction",
     "nodes": {
+        "introduction": {
+            "type": "start",
+            "message": "Welcome to the AI System Assessment Tool! This tool will help you determine if your IT system qualifies as an AI system under the EU AI Act.",
+            "explanation": "decision_flow_explanation.md",
+            "action": "log_and_time",
+            "next": "identification"
+        },
         "identification": {
             "type": "decision",
             "message": "Please provide your identification details to complete the assessment.",
@@ -12,7 +19,7 @@
                     "system_name": "Please provide the name of the exact system (including, if applicable, the system version), you are assessing."
                 }
             ],
-            "explanation": "decision_flow_explanation.md",
+            "explanation": "No explanation needed",
             "action": "log_and_time",
             "options": [
                 {

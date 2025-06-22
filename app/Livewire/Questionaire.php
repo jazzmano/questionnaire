@@ -68,6 +68,9 @@ class Questionaire extends Component
 
     public function selectOption($optionIndex = null)
     {
+        if($this->currentNodeKey == 'introduction') {
+            $this->moveToNode('0');
+        }
         // Validate justification if required
         if ($this->requiresJustification) {
             $this->validate([
