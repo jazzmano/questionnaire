@@ -6,7 +6,21 @@
             {{ $currentNode['question'] ?? $currentNode['message'] ?? 'No content available' }}
         </flux:heading>
         @if(isset($explanationText))
-            <div class="prose prose-zinc dark:prose-invert max-w-3xl text-left leading-relaxed space-y-4 text-base">
+            <div class="prose prose-slate lg:prose-xl max-w-none
+                       prose-headings:text-slate-800 prose-headings:font-semibold
+                       prose-p:text-slate-700 prose-p:leading-relaxed
+                       prose-strong:text-slate-900 prose-strong:font-semibold
+                       prose-em:text-slate-600 prose-em:italic
+                       prose-a:text-blue-600 prose-a:font-medium prose-a:no-underline hover:prose-a:text-blue-700 hover:prose-a:underline
+                       prose-ul:text-slate-700 prose-ol:text-red-700
+                       prose-li:text-slate-700 prose-li:leading-relaxed
+                       prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:p-4 prose-blockquote:rounded-r-lg
+                       prose-code:text-blue-800 prose-code:bg-blue-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:font-mono prose-code:text-sm
+                       dark:prose-invert dark:prose-headings:text-slate-100 dark:prose-p:text-slate-300
+                       dark:prose-strong:text-slate-100 dark:prose-a:text-blue-400 dark:hover:prose-a:text-blue-300
+                       dark:prose-ul:text-slate-300 dark:prose-ol:text-slate-300 dark:prose-li:text-slate-300
+                       dark:prose-blockquote:bg-slate-800 dark:prose-blockquote:border-l-blue-400
+                       dark:prose-code:text-blue-300 dark:prose-code:bg-slate-800">
                 {!! $explanationText !!}
             </div>
         @endif
