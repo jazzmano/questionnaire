@@ -5,9 +5,7 @@ namespace App\Livewire;
 use App\Models\QuestionnaireAction;
 use Livewire\Component;
 use App\Models\QuestionnaireSession;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use PDO;
 use App\Models\IdentificationDetails;
 
 class Questionaire extends Component
@@ -28,10 +26,10 @@ class Questionaire extends Component
     public $multiSelectedAnswers = []; // for multi-select tracking
     public $requiresJustification = false; // flag to indicate if justification is required
     public $userDetails = [
-        'name' => '',
-        'email' => '',
-        'company' => '',
-        'system_name' => ''
+        'Name' => '',
+        'E-mail' => '',
+        'Company' => '',
+        'System' => ''
     ];
     public $pendingNodeQueue = []; // queue of node keys to visit
     public $multiSelect = false;
@@ -72,6 +70,7 @@ class Questionaire extends Component
             $this->moveToNode('0');
         }
         // Validate justification if required
+        //
         if ($this->requiresJustification) {
             $this->validate([
                 'justification_text' => 'required|min:10'
@@ -118,6 +117,7 @@ class Questionaire extends Component
         $this->multiSelectedAnswers = [];
         $this->justification_text = null;
         $this->completedFlow = false;
+        $this->showOptions = true; // Re-enable options when going back
 
         // Set node properties
         $this->setNodeProperties();
@@ -164,24 +164,24 @@ class Questionaire extends Component
     {
         // Validate identification details
         $this->validate([
-            'userDetails.name' => 'required|min:2',
-            'userDetails.email' => 'required|email',
-            'userDetails.company' => 'required|min:2',
-            'userDetails.system_name' => 'required|min:2'
+            'userDetails.Name' => 'required|min:2',
+            'userDetails.E-mail' => 'required|E-mail',
+            'userDetails.Company' => 'required|min:2',
+            'userDetails.System' => 'required|min:2'
         ], [
-            'userDetails.name.required' => 'Name is required.',
-            'userDetails.email.required' => 'Email is required.',
-            'userDetails.email.email' => 'Please enter a valid email address.',
-            'userDetails.company.required' => 'Company name is required.',
-            'userDetails.system_name.required' => 'System name is required.'
+            'userDetails.Name.required' => 'Name is required.',
+            'userDetails.E-mail.required' => 'Email is required.',
+            'userDetails.E-mail.email' => 'Please enter a valid email address.',
+            'userDetails.Company.required' => 'Company name is required.',
+            'userDetails.System.required' => 'System name is required.'
         ]);
 
         IdentificationDetails::create([
             'questionnaire_session_id' => $this->session->id,
-            'name' => $this->userDetails['name'],
-            'email' => $this->userDetails['email'],
-            'company' => $this->userDetails['company'],
-            'system_name' => $this->userDetails['system_name'],
+            'name' => $this->userDetails['Name'],
+            'email' => $this->userDetails['E-mail'],
+            'company' => $this->userDetails['Company'],
+            'system_name' => $this->userDetails['System'],
         ]);
 
         // If there's a stored final node key, proceed to completion

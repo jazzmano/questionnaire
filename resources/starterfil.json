@@ -13,13 +13,13 @@
             "message": "Please provide your identification details to complete the assessment.",
             "questions": [
                 {
-                    "name": "Please type in your name.",
-                    "email": "Please provide your e-mail address.",
-                    "company": "Please provide the name of the company you represent.",
-                    "system_name": "Please provide the name of the exact system (including, if applicable, the system version), you are assessing."
+                    "Name": "Please type in your name.",
+                    "E-mail": "Please provide your e-mail address.",
+                    "Company": "Please provide the name of the company you represent.",
+                    "System": "Please provide the name of the exact system (including, if applicable, the system version), you are assessing."
                 }
             ],
-            "explanation": "No explanation needed",
+            "explanation": "identification.md",
             "action": "log_and_time",
             "options": [
                 {
@@ -378,7 +378,7 @@
                     "label": "Yes",
                     "message": "Proceed with the validated system process.",
                     "actions": [ "log_and_time", "require_justification" ],
-                    "next": "Your_system_is_an_AI_system"
+                    "next": "your_system_is_an_AI_system"
                 },
                 {
                     "label": "No",
@@ -401,7 +401,7 @@
                     {
                         "label": "I assume the IT system is able to influence physical or virtual environments (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "Your_system_is_an_AI_system"
+                        "next": "your_system_is_an_AI_system"
                     },
                     {
                         "label": "I assume the IT system is not able to influence physical or virtual environments",
