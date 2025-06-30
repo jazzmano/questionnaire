@@ -4,7 +4,10 @@
         <flux:heading size="xl">
             {{ $currentNode['question'] ?? ($currentNode['message'] ?? 'No content available') }}
         </flux:heading>
-        @if (isset($explanationText) && $currentNodeKey !== 'identification')
+        @if (isset($explanationText) &&
+                $currentNodeKey !== 'identification' &&
+                $currentNodeKey !== 'not_subject_to_the_AI_Act' &&
+                $currentNodeKey !== 'your_system_is_an_AI_system')
             <div
                 class="prose prose-slate lg:prose-xl max-w-none
                        my-8 mx-4 md:mx-8 lg:mx-12 px-6 py-6
