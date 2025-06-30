@@ -66,7 +66,7 @@ class Questionaire extends Component
 
     public function selectOption($optionIndex = null)
     {
-        if($this->currentNodeKey == 'introduction') {
+        if ($this->currentNodeKey == 'introduction') {
             $this->moveToNode('0');
         }
         // Validate justification if required
@@ -152,8 +152,10 @@ class Questionaire extends Component
 
         foreach ($this->currentNode['options'] as $option) {
             $actions = $option['actions'] ?? [];
-            if (in_array('require_justification', $actions) ||
-                (is_array($actions) && in_array(['type' => 'require_justification'], $actions))) {
+            if (
+                in_array('require_justification', $actions) ||
+                (is_array($actions) && in_array(['type' => 'require_justification'], $actions))
+            ) {
                 return true;
             }
         }
@@ -234,7 +236,7 @@ class Questionaire extends Component
             'questionnaire_session_id' => $this->session->id,
             'node_key' => $this->currentNodeKey,
             'node_question' => $this->currentNode['question'] ?? $this->currentNode['message'] ?? 'Multi-select question',
-            'selected_option' => implode(',', $this->multiSelectedAnswers),
+            'selected_option' => implode("\n", $this->getAnswersFromMultiSelectQuestion($this->multiSelectedAnswers)),
             'justification' => $this->justification_text,
         ]);
 
@@ -287,8 +289,10 @@ class Questionaire extends Component
     {
         if ($nodeKey === 'end_flow' || in_array($nodeKey, ['your_system_is_an_AI_system', 'not_subject_to_the_AI_Act'])) {
             // Before completing flow, redirect to identification if not filled yet
-            if (empty($this->userDetails['name']) || empty($this->userDetails['email']) ||
-                empty($this->userDetails['company']) || empty($this->userDetails['system_name'])) {
+            if (
+                empty($this->userDetails['name']) || empty($this->userDetails['email']) ||
+                empty($this->userDetails['company']) || empty($this->userDetails['system_name'])
+            ) {
                 $this->moveToIdentification($nodeKey);
                 return;
             }
@@ -357,5 +361,21 @@ class Questionaire extends Component
     public function render()
     {
         return view('livewire.questionaire');
+    }
+    protected function getAnswersFromMultiSelectQuestion(array $multiSelectedAnswers): array
+    {
+        $selectedLabels = [];
+        $unsureOptionsArray = $this->data['unsure_followup']['options'];
+        array_shift($unsureOptionsArray);
+
+
+        foreach ($unsureOptionsArray as $option) {
+            foreach ($multiSelectedAnswers as $selectedAnswerValue) {
+                if ($selectedAnswerValue == $option['value']) {
+                    array_push($selectedLabels, $option['label']);
+                }
+            }
+        }
+        return $selectedLabels;
     }
 }

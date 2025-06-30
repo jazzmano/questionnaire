@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>AI Act Assessment Report</title>
@@ -189,6 +190,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>AI Act Assessment Report</h1>
@@ -221,63 +223,73 @@
         <div style="margin-top: 15px;">
             <div class="meta-item">
                 <span class="meta-label">Assessment Period:</span>
-                <span class="meta-value timestamp">{{ \Carbon\Carbon::parse($session->started_at)->format('F j, Y \a\t g:i A') }} - {{ \Carbon\Carbon::parse($session->completed_at)->format('F j, Y \a\t g:i A') }}</span>
+                <span
+                    class="meta-value timestamp">{{ \Carbon\Carbon::parse($session->started_at)->format('F j, Y \a\t g:i A') }}
+                    - {{ \Carbon\Carbon::parse($session->completed_at)->format('F j, Y \a\t g:i A') }}</span>
             </div>
         </div>
     </div>
 
     <div class="assessment-result">
-        <span class="result-icon">
-            @if($session->final_node_key === 'your_system_is_an_AI_system')
-                ✓
-            @else
-                ⚠
-            @endif
-        </span>
         <div class="result-title">
-            @if($session->final_node_key === 'your_system_is_an_AI_system')
+            @if ($session->final_node_key === 'your_system_is_an_AI_system')
                 AI System Identified
             @else
                 Not Subject to AI Act
             @endif
         </div>
         <div class="result-description">
-            @if($session->final_node_key === 'your_system_is_an_AI_system')
-                Your system qualifies as an AI system under Article 3(1) of the EU AI Act and is subject to its regulatory requirements.
+            @if ($session->final_node_key === 'your_system_is_an_AI_system')
+                Your system qualifies as an AI system under Article 3(1) of the EU AI Act and is subject to its
+                regulatory requirements.
             @else
-                Based on your responses, this system does not qualify as an AI system under the EU AI Act and is therefore not subject to its regulatory requirements.
+                Based on your responses, this system does not qualify as an AI system under the EU AI Act and is
+                therefore not subject to its regulatory requirements.
             @endif
         </div>
     </div>
 
     <div class="section">
         <h2 class="section-title">Assessment Details</h2>
-
         @foreach ($session->actions as $index => $action)
-            <div class="answer-card">
-                <div class="question-text">
-                    Question {{ $index + 1 }}: {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
-                </div>
-
-                <div class="answer-text">
-                    <strong>Response:</strong> {{ $action->selected_option }}
-
-                </div>
-
-                @if($action->justification)
-                    <div class="justification">
-                        <div class="justification-label">Justification:</div>
-                        <div class="justification-text">{{ $action->justification }}</div>
+            @if (str_contains($action->node_question, 'unsure'))
+                <div class="answer-card">
+                    <div class="question-text">
+                        Question {{ $index + 1 }}:
+                        {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
                     </div>
-                @endif
-            </div>
-        @endforeach
+                    <div class="answer-text">
+                        @foreach (explode("\n", $action->selected_option) as $answer)
+                            <strong>Response:</strong> {{ $answer }}
+                        @endforeach
+                    </div>
+                @else
+                    <div class="answer-card">
+                        <div class="question-text">
+                            Question {{ $index + 1 }}:
+                            {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
+                        </div>
+
+                        <div class="answer-text">
+                            <strong>Response:</strong> {{ $action->selected_option }}
+                        </div>
+            @endif
+            @if ($action->justification)
+                <div class="justification">
+                    <div class="justification-label">Justification:</div>
+                    <div class="justification-text">{{ $action->justification }}</div>
+                </div>
+            @endif
+    </div>
+    @endforeach
     </div>
 
     <div class="footer">
         <p>This report was generated automatically based on your responses to the AI Act Assessment Tool.</p>
         <p>Report generated on {{ now()->format('F j, Y \a\t g:i A T') }}</p>
-        <p><strong>Disclaimer:</strong> This assessment is for informational purposes only and does not constitute legal advice.</p>
+        <p><strong>Disclaimer:</strong> This assessment is for informational purposes only and does not constitute legal
+            advice. Please contact Frederik Kristensen (frkr@kromannreumert.com if you have any further inquiries.</p>
     </div>
 </body>
+
 </html>
