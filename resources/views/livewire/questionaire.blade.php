@@ -25,6 +25,47 @@
                        dark:prose-blockquote:bg-slate-800 dark:prose-blockquote:border-l-blue-400
                        dark:prose-code:text-blue-300 dark:prose-code:bg-slate-800">
                 {!! $explanationText !!}
+                
+                {{-- Answer options inside the explanation box --}}
+                @if ($showOptions && $currentNodeKey !== 'identification')
+                    <div class="not-prose mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                            {{-- Left: Options --}}
+                            <div class="space-y-3">
+                                @if ($isMultiSelectNode)
+                                    <flux:checkbox.group wire:model="multiSelectedAnswers"
+                                        label="Choose your answers (you can select multiple)">
+                                        @foreach ($currentNode['options'] ?? [] as $index => $option)
+                                            <flux:checkbox value="{{ $index }}" label="{{ $option['label'] }}" />
+                                        @endforeach
+                                    </flux:checkbox.group>
+                                    <flux:button variant="primary" wire:click="selectOption">Continue with Selected Options
+                                    </flux:button>
+                                @else
+                                    <flux:radio.group wire:model="selectedAnswer" label="Choose your answer">
+                                        @foreach ($currentNode['options'] ?? [] as $index => $option)
+                                            <flux:radio value="{{ $index }}" label="{{ $option['label'] }}" />
+                                        @endforeach
+                                    </flux:radio.group>
+                                    <flux:button variant="primary" wire:click="selectOption">Continue
+                                    </flux:button>
+                                @endif
+                            </div>
+                            {{-- Right: Justification Textarea --}}
+                            @if ($requiresJustification)
+                                <div class="w-full">
+                                    <flux:textarea wire:model="justification_text"
+                                        placeholder="Please provide your justification here..." resize="both" class="w-full" />
+                                    <div class="text-red-600 text-sm mt-1">
+                                        @error('justification_text')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </div>
         @endif
     @else
@@ -47,46 +88,12 @@
         @endforeach
     @endif
 
-    {{-- Bottom: Grid with answer buttons and justification --}}
-    @if ($showOptions)
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6 items-start">
-            {{-- Left: Options --}}
-            <div class="space-y-3">
-                @if ($currentNodeKey !== 'identification' && $isMultiSelectNode)
-                    <flux:checkbox.group wire:model="multiSelectedAnswers"
-                        label="Choose your answers (you can select multiple)">
-                        @foreach ($currentNode['options'] ?? [] as $index => $option)
-                            <flux:checkbox value="{{ $index }}" label="{{ $option['label'] }}" />
-                        @endforeach
-                    </flux:checkbox.group>
-                    <flux:button variant="primary" wire:click="selectOption">Continue with Selected Options
-                    </flux:button>
-                @elseif($currentNodeKey !== 'identification')
-                    <flux:radio.group wire:model="selectedAnswer" label="Choose your answer">
-                        @foreach ($currentNode['options'] ?? [] as $index => $option)
-                            <flux:radio value="{{ $index }}" label="{{ $option['label'] }}" />
-                        @endforeach
-                    </flux:radio.group>
-                    <flux:button variant="primary" wire:click="selectOption">Continue
-                    </flux:button>
-                @elseif($currentNodeKey === 'identification')
-                    <flux:button variant="primary" wire:click="selectOption">
-                        {{ $session->final_node_key ? 'Complete Assessment' : 'Start Questionnaire' }}
-                    </flux:button>
-                @endif
-            </div>
-            {{-- Right: Justification Textarea --}}
-            @if ($requiresJustification)
-                <div class="w-full">
-                    <flux:textarea wire:model="justification_text"
-                        placeholder="Please provide your justification here..." resize="both" class="w-full" />
-                    <div class="text-red-600 text-sm mt-1">
-                        @error('justification_text')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-            @endif
+    {{-- Identification button outside the box --}}
+    @if ($showOptions && $currentNodeKey === 'identification')
+        <div class="flex justify-center mt-6">
+            <flux:button variant="primary" wire:click="selectOption">
+                {{ $session->final_node_key ? 'Complete Assessment' : 'Start Questionnaire' }}
+            </flux:button>
         </div>
     @endif
 
