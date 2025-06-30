@@ -59,8 +59,8 @@
                             @if ($requiresJustification)
                                 <div class="w-full">
                                     <flux:textarea wire:model="justification_text"
-                                        placeholder="Please provide your justification here..." resize="both"
-                                        class="w-full" />
+                                        placeholder="Please provide your justification here..." class="w-full min-h-48"
+                                        rows="8" />
                                     <div class="text-red-600 text-sm mt-1">
                                         @error('justification_text')
                                             {{ $message }}
