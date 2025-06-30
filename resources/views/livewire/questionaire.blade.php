@@ -80,17 +80,27 @@
 
     {{-- Identification Questions --}}
     @if ($currentNodeKey === 'identification')
-        @foreach ($identificationQuestions as $question => $questionContent)
-            <div class="w-full max-w-md mx-auto">
-                <flux:field>
-                    <flux:label>{{ $question }}</flux:label>
-                    <flux:description>{{ $questionContent }}</flux:description>
-                    <flux:input type="{{ $question === 'email' ? 'email' : 'text' }}"
-                        wire:model.defer="userDetails.{{ $question }}" />
-                    <flux:error name="userDetails.{{ $question }}" />
-                </flux:field>
+        <div class="bg-white/50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-700 p-8 mx-auto max-w-3xl">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Contact Information</h3>
+                <p class="text-slate-600 dark:text-slate-400">Please provide your details to complete the assessment</p>
             </div>
-        @endforeach
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                @foreach ($identificationQuestions as $question => $questionContent)
+                    <div class="space-y-2 flex flex-col h-full">
+                        <flux:field class="flex-1">
+                            <flux:label class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ ucfirst($question) }}</flux:label>
+                            <flux:description class="text-xs text-slate-500 dark:text-slate-400 min-h-[2.5rem] flex items-center">{{ $questionContent }}</flux:description>
+                            <flux:input type="{{ $question === 'email' ? 'email' : 'text' }}"
+                                wire:model.defer="userDetails.{{ $question }}" 
+                                class="w-full" />
+                            <flux:error name="userDetails.{{ $question }}" />
+                        </flux:field>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     @endif
 
     {{-- Identification button outside the box --}}
