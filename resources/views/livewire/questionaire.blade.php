@@ -25,7 +25,7 @@
                        dark:prose-blockquote:bg-slate-800 dark:prose-blockquote:border-l-blue-400
                        dark:prose-code:text-blue-300 dark:prose-code:bg-slate-800">
                 {!! $explanationText !!}
-                
+
                 {{-- Answer options inside the explanation box --}}
                 @if ($showOptions && $currentNodeKey !== 'identification')
                     <div class="not-prose mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
@@ -39,7 +39,8 @@
                                             <flux:checkbox value="{{ $index }}" label="{{ $option['label'] }}" />
                                         @endforeach
                                     </flux:checkbox.group>
-                                    <flux:button variant="primary" wire:click="selectOption">Continue with Selected Options
+                                    <flux:button variant="primary" wire:click="selectOption">Continue with Selected
+                                        Options
                                     </flux:button>
                                 @else
                                     <flux:radio.group wire:model="selectedAnswer" label="Choose your answer">
@@ -55,7 +56,8 @@
                             @if ($requiresJustification)
                                 <div class="w-full">
                                     <flux:textarea wire:model="justification_text"
-                                        placeholder="Please provide your justification here..." resize="both" class="w-full" />
+                                        placeholder="Please provide your justification here..." resize="both"
+                                        class="w-full" />
                                     <div class="text-red-600 text-sm mt-1">
                                         @error('justification_text')
                                             {{ $message }}
