@@ -2,9 +2,50 @@
 <div class="bg-white/50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-700 p-6">
     <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Assessment Progress</h3>
+        <span class="hidden md:inline text-sm text-slate-600 dark:text-slate-400">
+            {{ $questionsAnswered }} questions answered
+        </span>
     </div>
 
-    <div class="relative">
+    {{-- Mobile View: Simplified progress --}}
+    <div class="md:hidden">
+        <div class="mb-4">
+            <div class="flex justify-between text-sm text-slate-600 dark:text-slate-400 mb-2">
+                <span>Step {{ $this->getNumberFromCurrentNodeKey($currentNodeKey) }} of 9</span>
+                <span>{{ $this->getProgressPercentage() }}%</span>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                <div class="bg-yellow-400 h-2 rounded-full transition-all duration-300 ease-out"
+                     style="width: {{ $this->getProgressPercentage() }}%"></div>
+            </div>
+        </div>
+        
+        {{-- Current step indicator --}}
+        <div class="flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-400 border-2 border-yellow-400 flex items-center justify-center">
+                    @if ($currentNodeKey === 'identification')
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                        </svg>
+                    @else
+                        <span class="text-white font-medium">{{ is_numeric($currentNodeKey) ? (int)$currentNodeKey + 1 : '?' }}</span>
+                    @endif
+                </div>
+                <div>
+                    <div class="font-medium text-slate-800 dark:text-slate-100">
+                        {{ $this->getNodeDisplayName($currentNodeKey) }}
+                    </div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">
+                        Current Step
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Desktop View: Full timeline --}}
+    <div class="hidden md:block relative">
         {{-- Progress bar background --}}
         <div class="absolute top-4 left-0 right-0 h-0.5 bg-slate-200 dark:bg-slate-700"></div>
 
