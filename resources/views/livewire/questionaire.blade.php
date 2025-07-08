@@ -1,7 +1,12 @@
 <div class="p-6 flex flex-col gap-6 max-w-6xl mx-auto">
-    <flux:modal name="confirm">
-        <!-- ... -->
-    </flux:modal>
+    {{-- Progress Timeline --}}
+    @if (!$completedFlow && $currentNodeKey !== 'introduction')
+        <div class="mx-4 md:mx-8 lg:mx-12">
+            <livewire:timeline :visitedNodes="$visitedNodes" :currentNodeKey="$currentNodeKey" :questionsAnswered="$questionsAnswered" :key="'timeline-' . $currentNodeKey . '-' . count($visitedNodes)" />
+        </div>
+    @endif
+
+    <flux:separator />
     {{-- Top: Question and Explanation --}}
     @if ($currentNode)
         <div class="mx-4 md:mx-8 lg:mx-12 px-6">

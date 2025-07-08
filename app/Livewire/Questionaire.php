@@ -22,6 +22,7 @@ class Questionaire extends Component
     public $fileContents;
     public $explanationText;
     public $nodeHistory = [];
+    public $visitedNodes = []; // Track complete path taken by user
     public $questionsAnswered = 0;
     public $identificationQuestions = [];
     public $multiSelectedAnswers = []; // for multi-select tracking
@@ -51,6 +52,9 @@ class Questionaire extends Component
         $this->currentNodeKey = $jsonData['entry'] ?? '0'; // Start with first question, not identification
         $this->identificationQuestions = $this->data['identification']['questions'][0] ?? [];
         $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
+
+        // Initialize visited nodes with starting node
+        $this->visitedNodes = [$this->currentNodeKey];
 
 
         $this->session = QuestionnaireSession::create([
@@ -108,6 +112,11 @@ class Questionaire extends Component
 
         // Remove current node from history and go to previous
         $previousNodeKey = array_pop($this->nodeHistory);
+
+        // Remove current node from visited nodes when going back
+        if (!empty($this->visitedNodes) && end($this->visitedNodes) === $this->currentNodeKey) {
+            array_pop($this->visitedNodes);
+        }
 
         $this->currentNodeKey = $previousNodeKey;
         $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
@@ -213,11 +222,6 @@ class Questionaire extends Component
 
     protected function handleUnsureFollowupSelection()
     {
-        if (count($this->multiSelectedAnswers) < 8) {
-            if (!in_array('0', $this->multiSelectedAnswers)) {
-                Flux::modal('confirm')->show();
-            }
-        }
         $selectedValues = [];
 
         foreach ($this->multiSelectedAnswers as $selectedIndex) {
@@ -314,6 +318,11 @@ class Questionaire extends Component
 
         // Update history
         $this->nodeHistory[] = $this->currentNodeKey;
+
+        // Track visited nodes (complete path)
+        if (!in_array($nodeKey, $this->visitedNodes)) {
+            $this->visitedNodes[] = $nodeKey;
+        }
 
         // Move to new node
         $this->currentNodeKey = $nodeKey;
