@@ -20,7 +20,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            o margin-bottom: 40px;
             padding-bottom: 20px;
             border-bottom: 3px solid #2563eb;
         }
@@ -194,7 +194,7 @@
 <body>
     <div class="header">
         <h1>AI Act Assessment Report</h1>
-        <p class="subtitle">European Union AI Act Compliance Assessment</p>
+        <p class="subtitle">AI Act System Assessment Report</p>
     </div>
 
     <div class="report-meta">

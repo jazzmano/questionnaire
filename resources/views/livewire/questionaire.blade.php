@@ -1,9 +1,14 @@
 <div class="p-6 flex flex-col gap-6 max-w-6xl mx-auto">
+    <flux:modal name="confirm">
+        <!-- ... -->
+    </flux:modal>
     {{-- Top: Question and Explanation --}}
     @if ($currentNode)
-        <flux:heading size="xl">
-            {{ $currentNode['question'] ?? ($currentNode['message'] ?? 'No content available') }}
-        </flux:heading>
+        <div class="mx-4 md:mx-8 lg:mx-12 px-6">
+            <flux:heading size="xl">
+                {{ $currentNode['question'] ?? ($currentNode['message'] ?? 'No content available') }}
+            </flux:heading>
+        </div>
         @if (isset($explanationText) &&
                 $currentNodeKey !== 'identification' &&
                 $currentNodeKey !== 'not_subject_to_the_AI_Act' &&
@@ -16,7 +21,7 @@
                        prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-6
                        prose-strong:text-slate-900 prose-strong:font-semibold
                        prose-em:text-slate-600 prose-em:italic
-                       prose-a:text-blue-600 prose-a:font-medium prose-a:no-underline hover:prose-a:text-blue-700 hover:prose-a:underline
+                       prose-a:text-blue-600 prose-a:font-medium prose-a:no-underline hover:prose-a:text-blue-700 hover:prose-a:underline prose-a:break-words
                        prose-ul:text-slate-700 prose-ul:mb-6 prose-ul:space-y-2
                        prose-ol:text-slate-700 prose-ol:mb-6 prose-ol:space-y-2
                        prose-li:text-slate-700 prose-li:leading-relaxed prose-li:mb-2
@@ -42,8 +47,9 @@
                                             <flux:checkbox value="{{ $index }}" label="{{ $option['label'] }}" />
                                         @endforeach
                                     </flux:checkbox.group>
-                                    <flux:button variant="primary" wire:click="selectOption">Continue with Selected
-                                        Options
+                                    <flux:button variant="primary" wire:click="selectOption" class="w-full text-center">
+                                        <span class="hidden sm:inline">Continue with Selected Options</span>
+                                        <span class="sm:hidden">Continue</span>
                                     </flux:button>
                                 @else
                                     <flux:radio.group wire:model="selectedAnswer" label="Choose your answer">
@@ -80,21 +86,24 @@
 
     {{-- Identification Questions --}}
     @if ($currentNodeKey === 'identification')
-        <div class="bg-white/50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-700 p-8 mx-auto max-w-3xl">
+        <div
+            class="bg-white/50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-700 p-8 mx-auto max-w-3xl">
             <div class="text-center mb-8">
                 <h3 class="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Contact Information</h3>
                 <p class="text-slate-600 dark:text-slate-400">Please provide your details to complete the assessment</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                 @foreach ($identificationQuestions as $question => $questionContent)
                     <div class="space-y-2 flex flex-col h-full">
                         <flux:field class="flex-1">
-                            <flux:label class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ ucfirst($question) }}</flux:label>
-                            <flux:description class="text-xs text-slate-500 dark:text-slate-400 min-h-[2.5rem] flex items-center">{{ $questionContent }}</flux:description>
+                            <flux:label class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                {{ ucfirst($question) }}</flux:label>
+                            <flux:description
+                                class="text-xs text-slate-500 dark:text-slate-400 min-h-[2.5rem] flex items-center">
+                                {{ $questionContent }}</flux:description>
                             <flux:input type="{{ $question === 'email' ? 'email' : 'text' }}"
-                                wire:model.defer="userDetails.{{ $question }}" 
-                                class="w-full" />
+                                wire:model.defer="userDetails.{{ $question }}" class="w-full" />
                             <flux:error name="userDetails.{{ $question }}" />
                         </flux:field>
                     </div>
@@ -119,8 +128,12 @@
                 <flux:button>Download Results</flux:button>
             </a>
         </div>
+        <div class="flex flex-col mt-8 gap-4 items-center">
+            <a href="/questionnaire/">
+                <flux:button variant="primary">Assess new system</flux:button>
+            </a>
+        </div>
     @endif
-
     {{-- Navigation --}}
     @if (!empty($nodeHistory))
         <div class="flex justify-between mt-6 gap-4">

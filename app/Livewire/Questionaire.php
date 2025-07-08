@@ -22,6 +22,7 @@ class Questionaire extends Component
     public $fileContents;
     public $explanationText;
     public $nodeHistory = [];
+    public $questionsAnswered = 0;
     public $identificationQuestions = [];
     public $multiSelectedAnswers = []; // for multi-select tracking
     public $requiresJustification = false; // flag to indicate if justification is required
@@ -51,9 +52,6 @@ class Questionaire extends Component
         $this->identificationQuestions = $this->data['identification']['questions'][0] ?? [];
         $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
 
-        if (!$this->currentNode) {
-            throw new \Exception('Starting node not found: ' . $this->currentNodeKey);
-        }
 
         $this->session = QuestionnaireSession::create([
             'uuid' => Str::uuid(),
@@ -66,18 +64,23 @@ class Questionaire extends Component
 
     public function selectOption($optionIndex = null)
     {
+        $this->questionsAnswered++;
         if ($this->currentNodeKey == 'introduction') {
             $this->moveToNode('0');
         }
-        // Validate justification if required
-        //
-        if ($this->requiresJustification) {
-            $this->validate([
-                'justification_text' => 'required|min:10'
-            ], [
-                'justification_text.required' => 'Please provide a justification for your answer.',
-                'justification_text.min' => 'Justification must be at least 10 characters long.'
-            ]);
+        // Validate justification if required for the selected option
+        if ($this->selectedAnswer !== null && isset($this->currentNode['options'][$this->selectedAnswer])) {
+            $selectedOption = $this->currentNode['options'][$this->selectedAnswer];
+            $actions = $selectedOption['actions'] ?? [];
+
+            if (in_array('require_justification', $actions)) {
+                $this->validate([
+                    'justification_text' => 'required|min:10'
+                ], [
+                    'justification_text.required' => 'Please provide a justification for your answer.',
+                    'justification_text.min' => 'Justification must be at least 10 characters long.'
+                ]);
+            }
         }
 
         if ($this->currentNodeKey === 'identification') {
@@ -98,6 +101,7 @@ class Questionaire extends Component
     // Removed old finalizeStep method - replaced with new flow methods above
     public function goBack()
     {
+        $this->questionsAnswered--;
         if (empty($this->nodeHistory)) {
             return; // Cannot go back further
         }
@@ -116,6 +120,7 @@ class Questionaire extends Component
         $this->selectedAnswer = null;
         $this->multiSelectedAnswers = [];
         $this->justification_text = null;
+        $this->resetValidation(); // Clear validation errors
         $this->completedFlow = false;
         $this->showOptions = true; // Re-enable options when going back
 
@@ -144,6 +149,7 @@ class Questionaire extends Component
         $this->isMultiSelectNode = $this->currentNodeKey === 'unsure_followup';
         $this->explanationText = $this->markdownFileContents($this->currentNode['explanation'] ?? '');
         $this->requiresJustification = $this->checkIfJustificationRequired();
+        $this->resetValidation(); // Clear any validation errors when setting up a new node
     }
 
     protected function checkIfJustificationRequired()
@@ -152,10 +158,7 @@ class Questionaire extends Component
 
         foreach ($this->currentNode['options'] as $option) {
             $actions = $option['actions'] ?? [];
-            if (
-                in_array('require_justification', $actions) ||
-                (is_array($actions) && in_array(['type' => 'require_justification'], $actions))
-            ) {
+            if (in_array('require_justification', $actions)) {
                 return true;
             }
         }
@@ -210,6 +213,11 @@ class Questionaire extends Component
 
     protected function handleUnsureFollowupSelection()
     {
+        if (count($this->multiSelectedAnswers) < 8) {
+            if (!in_array('0', $this->multiSelectedAnswers)) {
+                Flux::modal('confirm')->show();
+            }
+        }
         $selectedValues = [];
 
         foreach ($this->multiSelectedAnswers as $selectedIndex) {
@@ -315,6 +323,7 @@ class Questionaire extends Component
         $this->selectedAnswer = null;
         $this->multiSelectedAnswers = [];
         $this->justification_text = null;
+        $this->resetValidation(); // Clear validation errors
 
         // Set node properties
         $this->setNodeProperties();
@@ -337,6 +346,7 @@ class Questionaire extends Component
         $this->selectedAnswer = null;
         $this->multiSelectedAnswers = [];
         $this->justification_text = null;
+        $this->resetValidation(); // Clear validation errors
 
         // Set node properties
         $this->setNodeProperties();

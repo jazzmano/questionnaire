@@ -5,7 +5,6 @@
             "type": "start",
             "message": "Welcome to the AI System Assessment Tool! This tool will help you determine if your IT system qualifies as an AI system under the EU AI Act.",
             "explanation": "decision_flow_explanation.md",
-            "action": "log_and_time",
             "next": "identification"
         },
         "identification": {
@@ -20,7 +19,6 @@
                 }
             ],
             "explanation": "identification.md",
-            "action": "log_and_time",
             "options": [
                 {
                     "next": "0"
@@ -35,23 +33,17 @@
             "options": [
                 {
                     "label": "Yes.",
-                    "actions": [
-                        { "type": "log_and_time" },
-                        { "type": "require_justification", "prompt": "Please, justify your decision" }
-                    ],
+                    "actions": ["log_and_time","require_justification"],
                     "next": "your_system_is_an_AI_system"
                 },
                 {
                     "label": "No.",
-                    "actions": [
-                        { "type": "log_and_time" },
-                        { "type": "require_justification", "prompt": "Please, justify your decision" }
-                    ],
+                    "actions": ["log_and_time","require_justification"],
                     "next": "not_subject_to_the_AI_Act"
                 },
                 {
-                    "label": "Don't know.",
-                    "action": "log_and_time",
+                    "label": "Don't know. (Justification not required)",
+                    "actions": ["log_and_time"],
                     "next": "unsure_followup"
                 }
             ]
@@ -65,7 +57,8 @@
                 {
                     "label": "I don't know what I don't know – take me through everything.",
                     "actions": ["log_and_time"],
-                    "all_values": ["1", "2", "3", "4", "5", "6", "7"]
+                    "all_values": ["1", "2", "3", "4", "5", "6", "7"],
+                    "value": "0"
                 },
                 {
                     "label": "I don't know if I fulfill the 'machine-based system' criteria.",
