@@ -143,7 +143,7 @@
                     {
                         "label": "I assume the system is not machine-based.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_act"
+                        "next": "not_subject_to_the_AI_Act"
                     }
                 ]
             },
@@ -187,7 +187,7 @@
                     {
                         "label": "I assume the system is not designed to operate with varying levels of autonomy.",
                         "actions": [ "log_and_time", "require_justification" ],
-                        "next": "not_subject_to_the_AI_act"
+                        "next": "not_subject_to_the_AI_Act"
                     }
                 ]
             },
