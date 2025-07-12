@@ -30,3 +30,7 @@ If your system is purely theoretical or operates at random, it does not operate 
 
 
 **When in doubt, assume your system operate according to one or more implicit or explicit objectives.** Better safe than sorry.
+
+--
+
+If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.

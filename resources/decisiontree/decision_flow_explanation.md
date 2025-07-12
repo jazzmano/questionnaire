@@ -27,6 +27,6 @@ Throughout the flow, users will receive explanations of key concepts before maki
 
 **CONTACT AND LEGAL ADVICE**
 
-If you notice anything unclear or incorrect, please contact us at [EMAIL]. All feedback is welcome and appreciated. For the sake of good order: **This decision tree is not legal advice.**
+If you notice anything unclear or incorrect, please contact us at info@dicalist.com. All feedback is welcome and appreciated. 
 
-Please contact **Frederik Kristensen (frkr@kromannreumert.com)** if you need legal advice. This decision tree is not associated with Kromann Reumert. 
+For the sake of good order: **This decision tree is not legal advice.** Please contact **Frederik Kristensen (frkr@kromannreumert.com)** if you need legal advice. This decision tree is not associated with Kromann Reumert. 

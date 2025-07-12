@@ -25,3 +25,7 @@ However, if your system does adapt and you fail to monitor it appropriately, you
 
 **When in doubt, assume your system can adapt.** Better safe than sorry.
 
+--
+
+If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.
+

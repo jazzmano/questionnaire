@@ -3,3 +3,7 @@ All AI-systems are machine-based. A machine-based system is anything that uses h
 
 **How to know if your system is machine-based**:
 If you are unsure if your system is machine-look, look at it: does it run on a machine? That machine could be one you see, like your laptop, or one you don't, like a remote server. In most cases, the answer will be yes. 
+
+--
+
+A system that is not machine-based does not qualify as an AI system under the AI Act. If you select “No” below, the decision tree will end. Once completed, you can download your assessment report.

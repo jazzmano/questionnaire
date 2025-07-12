@@ -3,3 +3,7 @@ For a system to be an AI system is must have an impact on *something*. An AI sys
 
 **How to know if your system influences the world**:
 If you are unsure whether the output of your AI system can influence the real or a digital world, you should ask yourself whether the system’s output cause anything to change at all. If the answer is 'yes', your answer should be yes. 
+
+--
+
+A system that cannot influence environments does not qualify as an AI system under the AI Act. If you select “No” below, the decision tree will end. Once completed, you can download your assessment report.

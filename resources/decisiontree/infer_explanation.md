@@ -4,3 +4,6 @@ Inference is an AI system's ability  to _figure out_ how to produce an output fr
 **How to know if your system has the ability to infer**:
 If you are unsure of whether your system has the ability to infer, you should ask yourself whether your system has the ability to figure out *how* to process the input to generate an output. Be careful not to mix inference up with autonomy - inference is the ability to create, autonomy is the ability to decide.   
 
+--
+
+A system that without inference capabilities does not qualify as an AI system under the AI Act. If you select “No” below, the decision tree will end. Once completed, you can download your assessment report.

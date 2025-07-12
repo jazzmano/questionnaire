@@ -30,3 +30,7 @@ You should therefore choose option 2 only if you are absolutely certain that you
 
 
 **When in doubt, assume your system is able to infer.** Better safe than sorry.
+
+--
+
+If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.
