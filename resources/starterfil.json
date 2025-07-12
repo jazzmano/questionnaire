@@ -136,12 +136,12 @@
                 "explanation": "unsure_machine_based_explanation.md",
                 "options": [
                     {
-                        "label": "I assume the system is machine-based (recommended).",
+                        "label": "Option 1: I assume the system is machine-based (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     },
                     {
-                        "label": "I assume the system is not machine-based.",
+                        "label": "Option 2: I assume the system is not machine-based.",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "not_subject_to_the_AI_Act"
                     }
@@ -180,12 +180,12 @@
                 "explanation": "unsure_autonomy.md",
                 "options": [
                     {
-                        "label": "I assume the system is designed to operate with varying levels of autonomy (recommended).",
+                        "label": "Option 1: I assume the system is designed to operate with varying levels of autonomy (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     },
                     {
-                        "label": "I assume the system is not designed to operate with varying levels of autonomy.",
+                        "label": "Option 2: I assume the system is not designed to operate with varying levels of autonomy.",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "not_subject_to_the_AI_Act"
                     }
@@ -224,12 +224,12 @@
                 "explanation": "unsure_adaptiveness.md",
                 "options": [
                     {
-                        "label": "I assume the system exhibits adaptiveness after deployment (recommended).",
+                        "label": "Option 1: I assume the system exhibits adaptiveness after deployment (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     },
                     {
-                        "label": "I assume the system does not exhibit adaptiveness after deployment.",
+                        "label": "Option 2: I assume the system does not exhibit adaptiveness after deployment.",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     }
@@ -266,12 +266,12 @@
                 "explanation": "unsure_objectives.md",
                 "options": [
                     {
-                        "label": "I assume the system is designed to operate according to one or more implicit or explicit objectives (recommended).",
+                        "label": "Option 1: I assume the system is designed to operate according to one or more implicit or explicit objectives (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     },
                     {
-                        "label": "I assume the system is not designed to operate according to one or more implicit or explicit objectives.",
+                        "label": "Option 2: I assume the system is not designed to operate according to one or more implicit or explicit objectives.",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "not_subject_to_the_AI_Act"
                     }
@@ -308,12 +308,12 @@
                 "explanation": "unsure_inference.md",
                 "options": [
                     {
-                        "label": "I assume the system infers, from the input it receives, how to generate outputs (recommended).",
+                        "label": "Option 1: I assume the system infers, from the input it receives, how to generate outputs (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     },
                     {
-                        "label": "I assume the system does not infers, from the input it receives, how to generate outputs ",
+                        "label": "Option 2: I assume the system does not infers, from the input it receives, how to generate outputs ",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "not_subject_to_the_AI_Act"
                     }
@@ -350,12 +350,12 @@
                 "explanation": "unsure_outputs.md",
                 "options": [
                     {
-                        "label": "I assume the system is able to generate outputs such as predictions, content, recommendations, or decisions (recommended).",
+                        "label": "Option 1: I assume the system is able to generate outputs such as predictions, content, recommendations, or decisions (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next_node_from_selected_values": true
                     },
                     {
-                        "label": "I assume the system is not able to generate outputs such as predictions, content, recommendations, or decisions.",
+                        "label": "Option 2: I assume the system is not able to generate outputs such as predictions, content, recommendations, or decisions.",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "not_subject_to_the_AI_Act"
                     }
@@ -392,12 +392,12 @@
                 "explanation": "unsure_environments.md",
                 "options": [
                     {
-                        "label": "I assume the IT system is able to influence physical or virtual environments (recommended).",
+                        "label": "Option 1: I assume the IT system is able to influence physical or virtual environments (recommended).",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "your_system_is_an_AI_system"
                     },
                     {
-                        "label": "I assume the IT system is not able to influence physical or virtual environments",
+                        "label": "Option 2: I assume the IT system is not able to influence physical or virtual environments",
                         "actions": [ "log_and_time", "require_justification" ],
                         "next": "not_subject_to_the_AI_Act"
                     }
