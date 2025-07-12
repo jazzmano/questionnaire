@@ -6,8 +6,7 @@ If you are unsure whether your system is designed to operate according to one o
 
 We recommend you assume it *does* (option 1).
 
-**Why?**  
-*Why choose option 1?*
+**Why choose option 1?**
 If you assume your system is designed to operate according to one or more implicit or explicit objectives, it might be covered by the AI Act (if the other conditions for having an AI system are also fulfilled), but if it is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side. 
 
 All functional AI systems are goal-directed. They do not act at random. This means they are, by design, oriented toward achieving certain outcomes. These objectives may be:
@@ -26,7 +25,7 @@ Over time, the AI starts to favour applicants who resemble those who were previo
 
 Without understanding what the system is explicitly and implicitly optimising for, you cannot assess whether it complies with relevant laws, such as non-discrimination laws, explain its behaviour to users or regulators, or correct unintended harms. Therefore, assuming your system operates according to one or more objectives is the safer and more responsible position. By understanding your system’s goals, you can help prevent legal violations and reputational damage, and build a foundation for responsible AI governance, which is increasingly expected by most stakeholders.
 
-*Why choose option 2?*
+**Why choose option 2?**
 If your system is purely theoretical or operates at random, it does not operate according to one or more implicit or explicit objectives. In that case, you can choose option 2. However, be cautious - most functional systems are goal-directed in practice. Even if a system’s objectives are not explicitly defined, patterns in the underlying data, model architecture, or feedback mechanisms can lead it to optimise for certain outcomes. If you overlook these objectives, you may miss critical risks that arise from how the system actually behaves in the real world, like bias or unfair treatment.
 
 

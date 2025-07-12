@@ -5,9 +5,8 @@ If you are unsure whether your system infer, from the input it receives, how to
 2. **Assume it *does not* infer how to generate outputs.**
 
 We recommend you assume it *does* (option 1).
-
-**Why?**  
-*Why choose option 1?*
+  
+**Why choose option 1?**
 If you assume your system is able to infer, it might be covered by the AI Act (if the other conditions for having an AI system are also fulfilled), but if it is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side. 
 
 AI systems must be able to figure out how to turn inputs into outputs. 'Inference' can be thought of as the AI systems ability to think. This inference capability can be present both when the AI system is being *developed* and when it is being *used*. 
@@ -20,7 +19,7 @@ Even if you are unsure whether your system can "infer," it is often wise to act 
 
 Beyond legal compliance, this approach also creates business value: it fosters a culture of responsible AI use, reduces the risk of reputational damage from incorrect outputs, and builds trust with customers and regulators, all of which contribute to long-term business credibility.
 
-*Why choose option 2?*
+**Why choose option 2?**
 You should choose option 2 only if your system does not infer (think). If your system is a simple, traditional software program (one that follows fixed rules (an "if/then" system)), you can  assume that it does not have inference capability.
 
 Be aware, however, that many modern software systems that appear rule-based may still rely on AI components performing inference, for example by using pre-trained models to personalise outputs. This can be hard to spot, so if you are in doubt, you should ask your AI provider of the system's inference capability. 

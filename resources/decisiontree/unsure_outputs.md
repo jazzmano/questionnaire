@@ -6,8 +6,7 @@ If you are unsure whether your system is able to generate outputs such as predi
 
 We recommend you assume it *is* (option 1).
 
-**Why?**  
-*Why choose option 1?*
+**Why choose option 1?**
 If you assume your system is able to generate outputs, it might be covered by the AI Act (if the other conditions for having an AI system are also fulfilled), but if it is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side. 
 
 What really separates AI systems from regular IT systems, are AI systems ability to generate outputs. There are generally four broad categories of outputs: predictions, content, recommendations, and decisions.
@@ -26,7 +25,7 @@ For these reasons, it is critical for businesses to understand what types of out
 
 By understanding and managing how your system generates outputs, you not only reduce legal risk, you also strengthen user trust and your organisation’s reputation in the market.
 
-*Why choose option 2?*
+**Why choose option 2?**
 You should choose Option 2 only if your system does not generate outputs. This applies, e.g., if your system only supports internal tasks or processes and does not produce outputs that are presented to users or used in a way that could influence their decisions, actions, or understanding.
 
 Please note that many systems that appear purely internal or rule-based may still generate outputs that shape user behaviour or decisions indirectly. For example, a customer service platform may use AI to prioritise which support tickets agents should address first. While this output is not shown to customers directly, it affects which customers receive faster or slower service.

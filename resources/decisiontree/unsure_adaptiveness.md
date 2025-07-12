@@ -6,8 +6,7 @@ If you’re unsure whether your system can **adapt** or **change its behavior ov
   
 We recommend you assume it *can* (option 1).
 
-**Why?**  
-*Why choose option 1?*
+**Why choose option 1?**
 Even though the AI Act does not require a system to adapt after deployment in order to be classified as an AI system, adaptiveness still matters greatly for risk management. If your system can change itself, the version you have today may behave very differently from the version you had last week.
 
 Imagine deploying a low-risk marketing AI that initially seems harmless. Over time, the system updates itself and begins using aggressive or even prohibited tactics to boost results, potentially turning it into a prohibited AI system without your knowledge. Now you are exposed to serious legal and reputational risks.
@@ -18,7 +17,7 @@ To put this into perspective, consider ChatGPT. In 2022, we had ChatGPT 3, with 
 
 Unless you are absolutely certain that your system does not change after deployment, it is safer to assume that it does.
 
-*Why choose option 2?*
+**Why choose option 2?**
 Whether your system can adapt or not does not affect whether it classifies as an AI system under the AI Act. If you are in doubt, you can therefore assume that your system does not exhibit adaptiveness without risking non-compliance with the AI Act.
 
 However, if your system does adapt and you fail to monitor it appropriately, you may still face business risks, such as outputs that drift away from compliance, harm user trust, or lead to unintended behaviours. If in doubt, building in light monitoring is often a low-cost safeguard that can save your organisation from larger risks later.
