@@ -14,8 +14,8 @@
                 {{ $currentNode['question'] ?? ($currentNode['message'] ?? 'No content available') }}
             </flux:heading>
         </div>
-        @if (isset($explanationText) &&
-                $currentNodeKey !== 'identification' &&
+        @if (
+            $currentNodeKey !== 'identification' &&
                 $currentNodeKey !== 'not_subject_to_the_AI_Act' &&
                 $currentNodeKey !== 'your_system_is_an_AI_system')
             <div
@@ -37,7 +37,7 @@
                        dark:prose-ul:text-slate-300 dark:prose-ol:text-slate-300 dark:prose-li:text-slate-300
                        dark:prose-blockquote:bg-slate-800 dark:prose-blockquote:border-l-blue-400
                        dark:prose-code:text-blue-300 dark:prose-code:bg-slate-800">
-                {!! $explanationText !!}
+                <livewire:accordion :markdownFile="$markdownFile" :key="'accordion-' . $currentNodeKey" />
 
                 {{-- Answer options inside the explanation box --}}
                 @if ($showOptions && $currentNodeKey !== 'identification')

@@ -21,6 +21,7 @@ class Questionaire extends Component
     public $completedFlow = false;
     public $fileContents;
     public $explanationText;
+    public $markdownFile = '';
     public $nodeHistory = [];
     public $visitedNodes = []; // Track complete path taken by user
     public $questionsAnswered = 0;
@@ -52,6 +53,7 @@ class Questionaire extends Component
         $this->currentNodeKey = $jsonData['entry'] ?? '0'; // Start with first question, not identification
         $this->identificationQuestions = $this->data['identification']['questions'][0] ?? [];
         $this->currentNode = $this->data[$this->currentNodeKey] ?? null;
+        $this->markdownFile = $this->currentNode['explanation'] ?? '';
 
         // Initialize visited nodes with starting node
         $this->visitedNodes = [$this->currentNodeKey];
@@ -137,26 +139,10 @@ class Questionaire extends Component
         $this->setNodeProperties();
     }
 
-    public function markdownFileContents($fileName)
-    {
-        if (empty($fileName)) {
-            return '';
-        }
-
-        $filePath = resource_path("decisiontree/{$fileName}");
-
-        if (file_exists($filePath) && is_file($filePath)) {
-            return Str::markdown(file_get_contents($filePath));
-        }
-
-        // Return empty string if file doesn't exist or is not a valid file
-        return '';
-    }
-
     protected function setNodeProperties()
     {
         $this->isMultiSelectNode = $this->currentNodeKey === 'unsure_followup';
-        $this->explanationText = $this->markdownFileContents($this->currentNode['explanation'] ?? '');
+        $this->markdownFile = $this->currentNode['explanation'] ?? '';
         $this->requiresJustification = $this->checkIfJustificationRequired();
         $this->resetValidation(); // Clear any validation errors when setting up a new node
     }
@@ -367,6 +353,7 @@ class Questionaire extends Component
         $this->session->completed_at = now();
         $this->session->save();
 
+        $this->markdownFile = ''; // Clear explanation text on completion
         $this->completedFlow = true;
         $this->currentNode = $this->data[$finalNodeKey] ?? ['message' => 'Flow completed'];
         $this->explanationText = ''; // Clear explanation text on completion
