@@ -33,7 +33,3 @@ Please note that many systems that appear purely internal or rule-based may stil
 If you are unsure, it is safer to assume your system generates outputs and apply appropriate governance.
 
 **When in doubt, assume your system can generate outputs.**  Better safe than sorry.
-
---
-
-If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.

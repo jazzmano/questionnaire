@@ -18,7 +18,3 @@ If you assume that your system is not machine-based, you are taking a risk, unle
 
 
 **When in doubt, assume your system is machine-based.** Better safe than sorry.
-
---
-
-If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.

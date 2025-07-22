@@ -22,7 +22,3 @@ Many systems that appear passive or internal do in fact influence their environm
 
 
 **When in doubt, assume your system is able to influence physical or virtual environments.** Better safe than sorry.
-
---
-
-If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.

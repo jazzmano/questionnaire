@@ -3,7 +3,3 @@ Autonomy means the system's ability to make decisions without direct human contr
 
 **How to know if your system is autonomous**:
 If you're unsure whether your IT system has autonomy, ask yourself this: Is a human necessary in every single step the system takes, or can the system do _at least one step_ on its own without being told exactly what to do? If a human is needed all the way through, the system is not autonomous. Otherwise, it has a level of autonomy.
-
---
-
-A system that is not autonomous does not qualify as an AI system under the AI Act. If you select “No” below, the decision tree will end. Once completed, you can download your assessment report.

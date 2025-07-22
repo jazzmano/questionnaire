@@ -22,7 +22,3 @@ For this reason, if there is any doubt, it is safer to assume that your system h
 
 
 **When in doubt, assume your system acts with autonomy.** Better safe than sorry.
-
---
-
-If you select “option 2” below, the decision tree will end. Once completed, you can download your assessment report.
