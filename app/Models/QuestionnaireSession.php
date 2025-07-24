@@ -21,8 +21,4 @@ class QuestionnaireSession extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function identificationDetail(): HasOne
-    {
-        return $this->hasOne(IdentificationDetails::class);
-    }
 }

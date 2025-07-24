@@ -190,13 +190,13 @@ class Questionaire extends Component
             'userDetails.System.required' => 'System name is required.'
         ]);
 
-        IdentificationDetails::create([
-            'questionnaire_session_id' => $this->session->id,
+        // Store identification details in PHP session (temporary, GDPR compliant)
+        session(['identification_details' => [
             'name' => $this->userDetails['Name'],
             'email' => $this->userDetails['E-mail'],
             'company' => $this->userDetails['Company'],
             'system_name' => $this->userDetails['System'],
-        ]);
+        ]]);
 
         // If there's a stored final node key, proceed to completion
         if ($this->session->final_node_key) {

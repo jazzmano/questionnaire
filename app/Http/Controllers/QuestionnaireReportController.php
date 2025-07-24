@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IdentificationDetails;
 use App\Models\QuestionnaireAction;
 use App\Models\QuestionnaireSession;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -20,9 +19,14 @@ class QuestionnaireReportController extends Controller
 
         $this->cleanReport($session->id);
         $session->load('actions', 'user');
-        $identifier = IdentificationDetails::where('questionnaire_session_id', $session->id)->first();
+        
+        // Get identification details from session (GDPR compliant)
+        $identifier = (object) session('identification_details', []);
 
         $pdf = Pdf::loadView('pdf.questionnaire-report', compact('session', 'identifier'));
+
+        // Clear identification details from session after PDF generation
+        session()->forget('identification_details');
 
         return $pdf->download('questionnaire-report.pdf');
     }
