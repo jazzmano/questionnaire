@@ -60,15 +60,15 @@ class Timeline extends Component
     public function getNodeDisplayName($nodeKey)
     {
         $nodeDisplayNames = [
-            '0' => 'Q1',
-            '1' => 'Machine',
+            '0' => 'Intro',
+            '1' => 'Machine-based',
             '2' => 'Autonomy',
             '3' => 'Adaptive',
             '4' => 'Objectives',
             '5' => 'Inference',
             '6' => 'Outputs',
             '7' => 'Influence',
-            'identification' => 'Contact',
+            'identification' => 'Info',
             'unsure_followup' => 'Unsure',
             'introduction' => 'Start'
         ];
