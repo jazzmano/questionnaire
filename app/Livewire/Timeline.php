@@ -60,15 +60,15 @@ class Timeline extends Component
     public function getNodeDisplayName($nodeKey)
     {
         $nodeDisplayNames = [
-            '0' => 'Q1',
-            '1' => 'Machine',
+            '0' => 'Intro',
+            '1' => 'Machine-based',
             '2' => 'Autonomy',
             '3' => 'Adaptive',
             '4' => 'Objectives',
             '5' => 'Inference',
             '6' => 'Outputs',
             '7' => 'Influence',
-            'identification' => 'Contact',
+            'identification' => 'Info',
             'unsure_followup' => 'Unsure',
             'introduction' => 'Start'
         ];
@@ -79,7 +79,7 @@ class Timeline extends Component
     public function adjustVisitedNodes()
     {
         $orderedSteps = ['0', '1', '2', '3', '4', '5', '6', '7', 'identification'];
-        
+
         // Map unsure followup nodes to their corresponding main question
         $unsureToMainQuestion = [
             'unsure_followup' => '0',
@@ -90,10 +90,10 @@ class Timeline extends Component
             '6_unsure_followup' => '6',
             '7_unsure_followup' => '7'
         ];
-        
+
         // Determine which main question we're currently on
         $currentMainQuestion = $this->currentNodeKey;
-        
+
         // If current node is an unsure followup, map it to the main question
         if (isset($unsureToMainQuestion[$this->currentNodeKey])) {
             $currentMainQuestion = $unsureToMainQuestion[$this->currentNodeKey];
