@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AI Act Assessment Report</title>
+    <title>AI Act system assessment report</title>
     <style>
         @page {
             margin: 2cm;
@@ -194,7 +194,6 @@
 <body>
     <div class="header">
         <h1>AI Act Assessment Report</h1>
-        <p class="subtitle">AI Act System Assessment Report</p>
     </div>
 
     <div class="report-meta">
@@ -220,7 +219,7 @@
                 </div>
             </div>
         </div>
-        <div style="margin-top: 15px;">
+        <div style="margin-top: 10px;">
             <div class="meta-item">
                 <span class="meta-label">Assessment Period:</span>
                 <span
@@ -233,9 +232,9 @@
     <div class="assessment-result">
         <div class="result-title">
             @if ($session->final_node_key === 'your_system_is_an_AI_system')
-                AI System Identified
+                AI system identified
             @else
-                Not Subject to AI Act
+                Your system is not subject to the AI Act.
             @endif
         </div>
         <div class="result-description">
