@@ -1,4 +1,4 @@
-<div class="p-6 flex flex-col gap-6 max-w-6xl mx-auto">
+<div class="p-6 pt-16 sm:pt-20 md:pt-24 lg:pt-28 flex flex-col gap-6 max-w-6xl mx-auto">
     {{-- Progress Timeline --}}
     @if (!$completedFlow && $currentNodeKey !== 'introduction')
         <div class="mx-4 md:mx-8 lg:mx-12">
