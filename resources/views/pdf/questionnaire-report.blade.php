@@ -116,6 +116,7 @@
             padding: 20px;
             margin-bottom: 15px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            page-break-inside: avoid;
         }
 
         .question-text {
@@ -167,6 +168,8 @@
         .timestamp {
             color: #9ca3af;
             font-size: 14px;
+            vertical-align: top;
+            line-height: inherit;
         }
 
         .badge {
@@ -248,40 +251,87 @@
         </div>
     </div>
 
-    <div class="section">
-        <h2 class="section-title">Assessment Details</h2>
-        @foreach ($session->actions as $index => $action)
-            @if (str_contains($action->node_question, 'unsure'))
-                <div class="answer-card">
-                    <div class="question-text">
-                        Question {{ $index + 1 }}:
-                        {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
-                    </div>
-                    <div class="answer-text">
-                        @foreach (explode("\n", $action->selected_option) as $answer)
-                            <strong>Response:</strong> {{ $answer }}
-                        @endforeach
-                    </div>
-                @else
-                    <div class="answer-card">
-                        <div class="question-text">
-                            Question {{ $index + 1 }}:
-                            {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
-                        </div>
+    @php
+        // Group actions by subject category based on node_key patterns
+        $groupedActions = collect($session->actions)->groupBy(function ($action) {
+            $nodeKey = $action->node_key;
+            
+            // Skip identification and initial assessment
+            if (in_array($nodeKey, ['identification', '0', 'unsure_followup'])) {
+                return 'initial_assessment';
+            }
+            
+            // Determine category based on node key pattern
+            if (str_starts_with($nodeKey, '1') || str_contains($nodeKey, 'machine_based')) {
+                return 'machine_based_system';
+            } elseif (str_starts_with($nodeKey, '2') || str_contains($nodeKey, 'autonomy')) {
+                return 'autonomy';
+            } elseif (str_starts_with($nodeKey, '3') || str_contains($nodeKey, 'adaptiveness')) {
+                return 'adaptiveness';
+            } elseif (str_starts_with($nodeKey, '4') || str_contains($nodeKey, 'objectives')) {
+                return 'objectives';
+            } elseif (str_starts_with($nodeKey, '5') || str_contains($nodeKey, 'inference')) {
+                return 'inference';
+            } elseif (str_starts_with($nodeKey, '6') || str_contains($nodeKey, 'outputs')) {
+                return 'outputs';
+            } elseif (str_starts_with($nodeKey, '7') || str_contains($nodeKey, 'environment')) {
+                return 'environment_influence';
+            } else {
+                return 'other';
+            }
+        });
+        
+        // Define section titles
+        $sectionTitles = [
+            'initial_assessment' => 'Initial Assessment',
+            'machine_based_system' => 'Machine-Based System',
+            'autonomy' => 'System Autonomy',
+            'adaptiveness' => 'Adaptiveness After Deployment',
+            'objectives' => 'System Objectives',
+            'inference' => 'Inference Capability',
+            'outputs' => 'System Outputs',
+            'environment_influence' => 'Environmental Influence',
+            'other' => 'Additional Assessment Details'
+        ];
+    @endphp
 
-                        <div class="answer-text">
-                            <strong>Response:</strong> {{ $action->selected_option }}
+    @foreach ($groupedActions as $category => $actions)
+        @if ($actions->isNotEmpty())
+            <div class="section">
+                <h2 class="section-title">{{ $sectionTitles[$category] ?? ucfirst(str_replace('_', ' ', $category)) }}</h2>
+                
+                @foreach ($actions as $index => $action)
+                    @if (str_contains($action->node_question, 'unsure'))
+                        <div class="answer-card">
+                            <div class="question-text">
+                                {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
+                            </div>
+                            <div class="answer-text">
+                                @foreach (explode("\n", $action->selected_option) as $answer)
+                                    <strong>Response:</strong> {{ $answer }}
+                                @endforeach
+                            </div>
+                    @else
+                        <div class="answer-card">
+                            <div class="question-text">
+                                {{ $action->node_question ?? ucfirst(str_replace('_', ' ', $action->node_key)) }}
+                            </div>
+
+                            <div class="answer-text">
+                                <strong>Response:</strong> {{ $action->selected_option }}
+                            </div>
+                    @endif
+                    @if ($action->justification)
+                        <div class="justification">
+                            <div class="justification-label">Justification:</div>
+                            <div class="justification-text">{{ $action->justification }}</div>
                         </div>
-            @endif
-            @if ($action->justification)
-                <div class="justification">
-                    <div class="justification-label">Justification:</div>
-                    <div class="justification-text">{{ $action->justification }}</div>
+                    @endif
                 </div>
-            @endif
-    </div>
+                @endforeach
+            </div>
+        @endif
     @endforeach
-    </div>
 
     <div class="footer">
         <p>This report was generated automatically based on your responses to the AI Act Assessment Tool.</p>
