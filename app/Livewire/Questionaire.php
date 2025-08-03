@@ -103,11 +103,7 @@ class Questionaire extends Component
             $this->handleSingleSelectSubmission($optionIndex);
         }
 
-        // Refresh accordion with new markdown file
-        $this->dispatch('refreshAccordion', markdownFile: $this->markdownFile);
-
-        // Scroll to top of page when question changes
-        $this->dispatch('scroll-to-top');
+        // Accordion will automatically refresh with new markdownFile prop
     }
 
     // Removed old finalizeStep method - replaced with new flow methods above

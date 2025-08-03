@@ -226,14 +226,5 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('scroll-to-top', (event) => {
-            console.log('Scrolling to top');
-            globalThis.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    });
-</script>
+{{-- Auto-scroll functionality for question navigation --}}
+<script src="{{ asset('js/questionnaire-scroll.js') }}"></script>
