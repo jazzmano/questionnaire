@@ -1,7 +1,8 @@
-An AI system is defined like this in Article 3(1) of the AI Act:
+# An AI system is defined like this in Article 3(1) of the AI Act:
 
+:::accordion What is an AI system?
 ‘AI system’ means a machine-based system that is designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment, and that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments;
-
+:::
 To decide if what you are dealing with is an AI system, your system must therefore check of seven boxes: 
 
 1) your system *must* be **machine-based**, 

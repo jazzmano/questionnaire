@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 
 class Accordion extends Component
 {
@@ -42,6 +43,14 @@ class Accordion extends Component
         } else {
             $this->openSections[] = $index;
         }
+    }
+
+    #[On('refreshAccordion')]
+    public function refreshAccordion($markdownFile)
+    {
+        $this->markdownFile = $markdownFile;
+        $this->loadBlocks();
+        $this->openSections = []; // Reset open sections when content changes
     }
 
     public function loadMarkdownFile($markdownFile)
