@@ -25,10 +25,14 @@ class QuestionnaireReportController extends Controller
 
         $pdf = Pdf::loadView('pdf.questionnaire-report', compact('session', 'identifier'));
 
+        // Create filename using system name, fallback to default if not available
+        $systemName = $identifier->system_name ?? 'questionnaire-report';
+        $filename = $this->sanitizeFilename($systemName) . '.pdf';
+
         // Clear identification details from session after PDF generation
         session()->forget('identification_details');
 
-        return $pdf->download('questionnaire-report.pdf');
+        return $pdf->download($filename);
     }
 
     public function cleanReport($questionnaireSessionId)
@@ -52,5 +56,20 @@ class QuestionnaireReportController extends Controller
             ->whereIn('node_key', $nodeKeys)
             ->whereNotIn('id', $idsToKeep)
             ->delete();
+    }
+
+    private function sanitizeFilename($filename)
+    {
+        // Remove or replace characters that are not safe for filenames
+        $sanitized = preg_replace('/[^a-zA-Z0-9\-_\s]/', '', $filename);
+        
+        // Replace multiple spaces with single spaces and trim
+        $sanitized = preg_replace('/\s+/', ' ', trim($sanitized));
+        
+        // Replace spaces with underscores for better filename compatibility
+        $sanitized = str_replace(' ', '_', $sanitized);
+        
+        // Ensure filename is not empty, use fallback if needed
+        return !empty($sanitized) ? $sanitized : 'questionnaire-report';
     }
 }

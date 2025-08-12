@@ -6,7 +6,8 @@ If you are unsure whether your system is able to generate outputs such as predic
 
 We recommend you assume it *is* (option 1).
 
-**Why choose option 1?**
+:::accordion Why choose option 1?
+
 If you assume your system is able to generate outputs, it might be covered by the AI Act (if the other conditions for having an AI system are also fulfilled), but if it is not prohibited or high-risk, the rules you need to follow are usually simple. Therefore, this approach makes sure you are on the safe side.
 
 What really separates AI systems from regular IT systems, are AI systems ability to generate outputs. There are generally four broad categories of outputs: predictions, content, recommendations, and decisions.
@@ -24,14 +25,17 @@ It is important to know whether your system is capable of generating such output
 For these reasons, it is critical for businesses to understand what types of outputs their AI systems are capable of generating. If you are unsure whether your system produces any of these outputs, or unsure which categories apply, the safest assumption is that your system may generate all types of outputs. You should then mitigate the potential risks associated with each accordingly.
 
 By understanding and managing how your system generates outputs, you not only reduce legal risk, you also strengthen user trust and your organisation's reputation in the market.
+
 :::
 
-**Why choose option 2?**
+:::accordion Why choose option 2?
+
 You should choose Option 2 only if your system does not generate outputs. This applies, e.g., if your system only supports internal tasks or processes and does not produce outputs that are presented to users or used in a way that could influence their decisions, actions, or understanding.
 
 Please note that many systems that appear purely internal or rule-based may still generate outputs that shape user behaviour or decisions indirectly. For example, a customer service platform may use AI to prioritise which support tickets agents should address first. While this output is not shown to customers directly, it affects which customers receive faster or slower service.
 
 If you are unsure, it is safer to assume your system generates outputs and apply appropriate governance.
+
 :::
 
 **When in doubt, assume your system can generate outputs.**  Better safe than sorry.

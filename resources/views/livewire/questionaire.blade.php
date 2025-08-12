@@ -60,7 +60,7 @@
                                 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">Your Response</h3>
                             </div>
 
-                            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+                            <div class="grid grid-cols-1 {{ $requiresJustification ? 'xl:grid-cols-2' : '' }} gap-8 items-start">
                                 {{-- Left: Options --}}
                                 <div class="space-y-4">
                                     @if ($isMultiSelectNode)

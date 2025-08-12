@@ -29,7 +29,7 @@
                     <!-- Main Heading -->
                     <h1 class="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
                         AI Act
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
                             Compliance
                         </span>
                         <br class="hidden md:block" />
@@ -45,7 +45,7 @@
                     <!-- CTA Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
                         <a href="{{ url('/questionnaire') }}"
-                            class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
+                            class="px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-white text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
                             Start Assessment
                         </a>
                         <a href="#features"
@@ -68,7 +68,7 @@
                             <!-- Feature 1 -->
                             <div
                                 class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
+                                <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-6">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -85,7 +85,7 @@
                             <!-- Feature 2 -->
                             <div
                                 class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                                <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                                <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-6">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -103,7 +103,7 @@
                             <!-- Feature 3 -->
                             <div
                                 class="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                                <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-6">
+                                <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-6">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -133,7 +133,7 @@
                         <div class="grid md:grid-cols-3 gap-8">
                             <div class="text-center">
                                 <div
-                                    class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
+                                    class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
                                     1
                                 </div>
                                 <h3 class="text-xl font-semibold text-white mb-4">Answer Questions</h3>
@@ -144,7 +144,7 @@
 
                             <div class="text-center">
                                 <div
-                                    class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
+                                    class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
                                     2
                                 </div>
                                 <h3 class="text-xl font-semibold text-white mb-4">Get Analysis</h3>
@@ -155,7 +155,7 @@
 
                             <div class="text-center">
                                 <div
-                                    class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
+                                    class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
                                     3
                                 </div>
                                 <h3 class="text-xl font-semibold text-white mb-4">Download Report</h3>
