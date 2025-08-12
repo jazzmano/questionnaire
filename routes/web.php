@@ -5,10 +5,9 @@ use Livewire\Volt\Volt;
 use App\Livewire\Questionaire;
 use App\Http\Controllers\QuestionnaireReportController;
 
-Route::redirect('/', '/questionnaire');
-
-Route::view('dashboard', 'dashboard')
-    ->name('dashboard');
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('questionnaire', Questionaire::class)
     ->name('questionnaire');
@@ -23,4 +22,4 @@ Route::get('questionnaire', Questionaire::class)
 
 Route::get('/questionnaire/{uuid}/report', [QuestionnaireReportController::class, 'download']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

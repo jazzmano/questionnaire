@@ -1,4 +1,6 @@
-**WHAT IS THIS DECISION TREE – AND CAN I RELY ON IT?**
+# WHAT IS THIS DECISION TREE – AND CAN I RELY ON IT?
+
+:::accordion About the legal basis and reasoning behind the tree
 
 This decision flow is designed to help you determine whether a system qualifies as an AI system under Article 3(1) of the AI Act (Regulation (EU) 2024/1689).
 
@@ -9,12 +11,15 @@ https://digital-strategy.ec.europa.eu/en/library/commission-publishes-guidelines
 
 The decision logic is implemented in a structured JSON format to ensure consistency and transparency in the reasoning process. We have made every effort to ensure that each relevant consideration from the AI Act and the Commission Guidelines is represented.
 
-In some places, we have taken interpretive liberties to improve usability and clarity. These adjustments are intended to enhance user understanding, not to deviate from neither the AI Act nor the Commission Guidelines. Nevertheless, it is possible that we have misunderstood or oversimplified certain elements. 
+In some places, we have taken interpretive liberties to improve usability and clarity. These adjustments are intended to enhance user understanding, not to deviate from either the AI Act or the Commission Guidelines. Nevertheless, it is possible that we have misunderstood or oversimplified certain elements.
 
 The decision tree prompts you to explain the reasoning behind your answers, enabling you to document any deviations from my interpretation. If you or your organization interpret the AI Act or the Commission Guidelines differently than we do, you are free to reflect this in your justification.  This ensures that the final assessment remains aligned with your organization’s legal position.
 
+:::
 
-**WHY USE THIS DECISION TREE?**
+# WHY USE THIS DECISION TREE?
+
+:::accordion Why this decision tree is structured the way it is
 
 There are many ways to assess whether a system qualifies as an AI system. For simple systems, this flow may seem overly detailed. However, this structure is intentional.
 
@@ -22,14 +27,21 @@ By following the reasoning laid out in the Commission Guidelines, this flow prom
 
 We believe that this tool can contribute meaningfully to the AI literacy training required under Article 4 of the AI Act, particularly for compliance teams and legal professionals.
 
-Throughout the flow, users will receive explanations of key concepts before making decisions. Every decision must be justified. At the end of the flow, a PDF report is generated. This report serves as a record of your assessment and the time it was made. Should a supervisory authority request documentation, you will be able to present a structured, time-stamped explanation of your reasoning. 
+:::
 
+:::accordion What happens at the end of the flow?
+
+Throughout the flow, users will receive explanations of key concepts before making decisions. Every decision must be justified.
+
+At the end of the flow, a PDF report is generated. This report serves as a record of your assessment and the time it was made. Should a supervisory authority request documentation, you will be able to present a structured, time-stamped explanation of your reasoning.
+
+:::
 
 **CONTACT AND LEGAL ADVICE**
 
-If you notice anything unclear or incorrect, please contact robertfrancisti@hotmail.com. All feedback is welcome and appreciated. 
+If you notice anything unclear or incorrect, please contact robertfrancisti@hotmail.com. All feedback is welcome and appreciated.
 
-For the sake of good order: **This decision tree is not legal advice.** Please contact **Frederik Kristensen (frkr@kromannreumert.com)** if you need legal advice. This decision tree is not associated with Kromann Reumert. 
+For the sake of good order: **This decision tree is not legal advice.** Please contact **Frederik Kristensen (frkr@kromannreumert.com)** if you need legal advice. This decision tree is not associated with Kromann Reumert.
 
 
 **VERSION**

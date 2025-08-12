@@ -1,9 +1,9 @@
-If you’re unsure whether your system can **adapt** or **change its behavior over time**, you have two choices:
+If you're unsure whether your system can **adapt** or **change its behavior over time**, you have two choices:
 
 1. **Assume it *can* adapt after deployment.**
 
 2. **Assume it *cannot* adapt after deployment.**
-  
+
 We recommend you assume it *can* (option 1).
 
 **Why choose option 1?**
@@ -16,12 +16,13 @@ Adaptive systems must therefore be monitored regularly. They evolve and if you a
 To put this into perspective, consider ChatGPT. In 2022, we had ChatGPT 3, with around 175 billion parameters. In 2023, ChatGPT 4 was released with 1.8 trillion parameters (more than ten times more). The "same" system (ChatGPT) had become fundamentally different, without most people realising it. This illustrates how adaptiveness and system evolution can make a huge difference, which must be carefully managed.
 
 Unless you are absolutely certain that your system does not change after deployment, it is safer to assume that it does.
+:::
 
 **Why choose option 2?**
 Whether your system can adapt or not does not affect whether it classifies as an AI system under the AI Act. If you are in doubt, you can therefore assume that your system does not exhibit adaptiveness without risking non-compliance with the AI Act.
 
 However, if your system does adapt and you fail to monitor it appropriately, you may still face business risks, such as outputs that drift away from compliance, harm user trust, or lead to unintended behaviours. If in doubt, building in light monitoring is often a low-cost safeguard that can save your organisation from larger risks later.
-
+:::
 
 **When in doubt, assume your system can adapt.** Better safe than sorry.
 
