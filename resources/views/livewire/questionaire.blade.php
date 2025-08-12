@@ -102,10 +102,12 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <flux:button variant="primary" wire:click="selectOption"
-                                            class="w-full py-3 text-base font-semibold">
-                                            Continue
-                                        </flux:button>
+                                        @if (!$requiresJustification)
+                                            <flux:button variant="primary" wire:click="selectOption"
+                                                class="w-full py-3 text-base font-semibold">
+                                                Continue
+                                            </flux:button>
+                                        @endif
                                     @endif
                                 </div>
 
@@ -144,6 +146,10 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        <flux:button variant="primary" wire:click="selectOption"
+                                            class="w-full py-3 text-base font-semibold">
+                                            Continue
+                                        </flux:button>
                                     </div>
                                 @endif
                             </div>
