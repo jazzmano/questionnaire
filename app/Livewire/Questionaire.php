@@ -133,12 +133,55 @@ class Questionaire extends Component
         $this->selectedAnswer = null;
         $this->multiSelectedAnswers = [];
         $this->justification_text = null;
+        
+        // Try to restore previous answer and justification for this node
+        $this->restorePreviousAnswer();
+        
         $this->resetValidation(); // Clear validation errors
         $this->completedFlow = false;
         $this->showOptions = true; // Re-enable options when going back
 
         // Set node properties
         $this->setNodeProperties();
+    }
+
+    protected function restorePreviousAnswer()
+    {
+        // Find the most recent action for this node
+        $previousAction = QuestionnaireAction::where('questionnaire_session_id', $this->session->id)
+            ->where('node_key', $this->currentNodeKey)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if (!$previousAction) {
+            return; // No previous answer found
+        }
+
+        // Restore justification text
+        $this->justification_text = $previousAction->justification;
+
+        // Restore selected answer(s)
+        if ($this->currentNodeKey === 'unsure_followup') {
+            // For multi-select nodes, restore the selected indices
+            $selectedLabels = explode("\n", $previousAction->selected_option);
+            $this->multiSelectedAnswers = [];
+            
+            // Find the indices that match the stored labels
+            foreach ($this->currentNode['options'] as $index => $option) {
+                if (in_array($option['label'], $selectedLabels)) {
+                    $this->multiSelectedAnswers[] = $index;
+                }
+            }
+        } else {
+            // For single-select nodes, find the index that matches the stored label
+            $selectedLabel = $previousAction->selected_option;
+            foreach ($this->currentNode['options'] as $index => $option) {
+                if ($option['label'] === $selectedLabel) {
+                    $this->selectedAnswer = $index;
+                    break;
+                }
+            }
+        }
     }
 
     protected function setNodeProperties()

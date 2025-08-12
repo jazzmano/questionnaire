@@ -42,8 +42,3 @@ At the end of the flow, a PDF report is generated. This report serves as a recor
 If you notice anything unclear or incorrect, please contact robertfrancisti@hotmail.com. All feedback is welcome and appreciated.
 
 For the sake of good order: **This decision tree is not legal advice.** Please contact **Frederik Kristensen (frkr@kromannreumert.com)** if you need legal advice. This decision tree is not associated with Kromann Reumert.
-
-
-**VERSION**
-
-Version v.1 - this is currently in beta.
